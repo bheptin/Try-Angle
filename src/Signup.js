@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import FoodPref from './FoodPref';
 
 
 class Signup extends Component {
   render () {
     return (
-          <h4>signup</h4>
+      <div>
+        <h4>signup</h4>
+        <FoodPref/>
+      </div>
     )
   }
 }
