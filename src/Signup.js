@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import base from './config/ReBase';
+import FoodPref from './FoodPref';
+
+
 
 class Signup extends Component {
   constructor () {
@@ -27,6 +30,7 @@ userHandler (error, userData){
 }
   render () {
     return (
+
 <form onSubmit={this.handleSubmit} className="form-group">
   <div className="form-group">
     <label>First Name</label>
@@ -47,6 +51,8 @@ userHandler (error, userData){
   </div>
   <button type="submit" className="btn btn-primary">Submit</button>
 </form>
+        <FoodPref/>
+
     )
   }
 }
