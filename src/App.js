@@ -64,7 +64,7 @@ class App extends Component {
 
 
         </div>
-          <Login />
+          {this.props.children}
       </div>
     );
   }
