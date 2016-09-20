@@ -1,8 +1,0 @@
-client:
-  apiKey:
-    id: 168NFGWUOXVMCSYVMGXLR22UP
-    secret: QYXiN0dehp4FQ3aE/eW3/JBPEaCgsprA5+Xu6EPXwx8
-application:
-  href: https://api.stormpath.com/v1/applications/tzWpZjjzQhjCYIa0tRkvx
-
-export default StormPath;
