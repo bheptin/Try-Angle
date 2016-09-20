@@ -6,6 +6,7 @@ class Login extends Component {
   render () {
     return (
 
+    <div>
 
       <form>
         <div className="form-group">
@@ -19,7 +20,7 @@ class Login extends Component {
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
-
+    </div>
     )
   }
 }
