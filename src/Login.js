@@ -16,11 +16,12 @@ class Login extends Component {
 
     }
 handleSubmit (event) {
+  event.preventDefault();
   let email = this.refs.email.value
   let password = this.refs.password.value
   base.authWithPassword ({email, password},
   this.authHandler);
-  
+
 }
 
 
