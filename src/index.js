@@ -7,8 +7,7 @@ import createHashHistory from 'history/lib/createHashHistory';
 import ReactStormpath, { Router, Loginlink, AuthenticatedRoute } from 'react-stormpath';
 
 
-ReactStormpath.init({
-});
+
 ReactDOM.render(
   <App />,
 
