@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-
+import Choose from './Choose';
 
 class Home extends Component {
   render () {
     return (
-      <h4>Home</h4>
+      <Choose/>
     )
   }
 }
