@@ -1,10 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, cloneElement } from 'react';
 import Login from './Login.js';
 import Signup from './Signup.js';
 
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {user: {}};
+    this.addUserToState = this.addUserToState.bind(this);
+  }
+  addUserToState(user) {
+    this.setState({user});
+  }
   render() {
     return (
       <div className="App">
@@ -65,8 +73,10 @@ class App extends Component {
 
 
         </div>
-      {this.props.children}
-          
+          {cloneElement(this.props.children, {
+            addUserToState: this.addUserToState,
+            uid: this.state.user.uid
+          })}
       </div>
     );
   }
