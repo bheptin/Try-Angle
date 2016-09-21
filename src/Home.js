@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import Choose from './Choose';
-=======
 import Friends from './Friends.js';
->>>>>>> origin/develop
 
 class Home extends Component {
   render () {
