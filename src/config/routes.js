@@ -12,8 +12,8 @@ const routes = (
       <IndexRedirect to="login" />
       <Route path='login' component={Login} />
       <Route path='signup' component={Signup} />
-      <Route path='profile' component={Profile} />
       <Route path="home" component={Home}/>
+      <Route path='profile' component={Profile}/>
     </Route>
   </Router>
 )
