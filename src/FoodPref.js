@@ -7,17 +7,25 @@ class FoodPref extends Component {
   constructor() {
     super();
     this.state = {foodPrefs: []};
+    this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    base.syncState(`${this.props.uid}/foodPrefs`, {
+    base.syncState(`users/${this.props.uid}/foodPrefs`, {
       context: this,
-      state: 'foodPrefs'
+      state: 'foodPrefs',
+      asArray: true
     })
+  }
+  handleChange(event) {
+    let selectedFood = event.target.value;
+    if ( !(this.state.foodPrefs.includes(selectedFood)) ) {
+      this.setState({foodPrefs: [...this.state.foodPrefs, selectedFood]});
+    }
   }
   render () {
     let checkBoxes = categories.map((category, index) => (
       <label key={index}>
-        <input type="checkbox" onChange={this.handleChange}/>
+        <input type="checkbox" onChange={this.handleChange} value={category}/>
         {category}
       </label>
     ));
