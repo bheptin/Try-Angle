@@ -3,19 +3,33 @@ import base from './config/ReBase';
 import FoodPref from './FoodPref';
 
 class Profile extends Component {
+  constructor() {
+    super();
+    this.state = {
+      personal: true,
+      foodPrefs: false,
+      allergies: false
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
   handleSubmit(event) {
     event.preventDefault();
-    base.post(`${this.props.uid}/personalInfo`, {
+    base.post(`users/${this.props.uid}/personalInfo`, {
       data: {
-        firstName: this.refs.first,
-        lastName: this.refs.last
+        firstName: this.refs.first.value,
+        lastName: this.refs.last.value
       }
+    })
+    this.setState({
+      personal: false,
+      foodPrefs: true,
+      allergies: false
     })
   }
   render () {
     return (
       <div>
-        <form onSubmit={this.handleSubmit} className="form-group">
+        <form onSubmit={this.handleSubmit} className="form-group" style={!this.state.personal ? {display: 'none'} : null}>
           <div className="form-group">
             <label>First Name</label>
             <input type="text" ref="first" className="form-control" placeholder="John"/>
@@ -26,7 +40,9 @@ class Profile extends Component {
           </div>
           <button type="submit" className="btn btn-primary">Next</button>
         </form>
-        <FoodPref/>
+        <div style={!this.state.foodPrefs ? {display: 'none'} : null}>
+          <FoodPref/>
+        </div>
       </div>
     )
   }
