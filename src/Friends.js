@@ -17,17 +17,15 @@ class Friends extends Component {
     context: this,
     asArray: true,
     then(data) {
-    this.setState({data})
-    console.log(data);
-  }
+      this.setState({data})
+      console.log(data);
+    }
   })
 }
 
-
-
   AddFriendToList (users) {
     console.log(users)
-    base.push(`try-angle/users/friendsList`, {
+    base.push(`users/iFiH3VX6IRal2d7ukB6bAdyQUHp2/friendsList`, {
       data: users.personalInfo
     })
   }
