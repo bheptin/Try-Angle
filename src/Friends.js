@@ -20,7 +20,7 @@ class Friends extends Component {
         console.log(data);
       }
     })
-  }
+}
 
   AddFriendToList (users) {
     console.log(users)
