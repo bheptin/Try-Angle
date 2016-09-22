@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import base from './config/ReBase';
 
+
 class Friends extends Component {
   constructor (props) {
     super(props)
       this.state = {
-        data: []
+        data: [],
+        selectedFriend: []
       }
 
   }
   componentDidMount(){
+
   base.fetch(`users`, {
     context: this,
     asArray: true
@@ -19,11 +22,23 @@ class Friends extends Component {
   }).catch(error => {
     console.log(error);
   })
-}
+  }
+
+
+
+  AddFriendToList (users) {
+    console.log(users)
+    base.push(`try-angle/users/friendsList`, {
+      data: users.personalInfo
+    })
+  }
+
 
 
   render () {
-    let fullNames = this.state.data.map((user, index) => <li key={index}>{user.personalInfo.firstName} {user.personalInfo.lastName} <input type="checkbox"/></li>);
+
+    let fullNames = this.state.data.map((user, index) => <li key={index}>{user.personalInfo.firstName} {user.personalInfo.lastName}
+    <button onClick={this.AddFriendToList.bind(this, user)}type="button" className="btn btn-primary btn-xs">Add</button><input type="checkbox"/></li>);
     return(
       <div className="Friends">
           <h3>Friends List</h3>
@@ -36,4 +51,6 @@ class Friends extends Component {
   }
 
 }
+
+
 export default Friends;
