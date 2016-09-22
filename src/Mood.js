@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
-
 class Mood extends Component {
-
   render () {
     return (
       <li className="moodList">

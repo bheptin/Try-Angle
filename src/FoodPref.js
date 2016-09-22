@@ -1,38 +1,42 @@
 import React, { Component } from 'react';
+import Allergy from './Allergy';
 import base from './config/ReBase';
-
-const categories = ["American", "Asian", "Indian", "Italian", "Mexican", "South American"];
+import getRestaurants from './config/api';
+import _ from 'lodash';
 
 class FoodPref extends Component {
   constructor() {
     super();
-    this.state = {foodPrefs: []};
-    this.handleChange = this.handleChange.bind(this);
-  }
-  componentDidMount() {
-    base.syncState(`users/${this.props.uid}/foodPrefs`, {
-      context: this,
-      state: 'foodPrefs',
-      asArray: true
-    })
-  }
-  handleChange(event) {
-    let selectedFood = event.target.value;
-    if ( !(this.state.foodPrefs.includes(selectedFood)) ) {
-      this.setState({foodPrefs: [...this.state.foodPrefs, selectedFood]});
+    this.state = {
+      allergies: []
     }
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.alterAllergies = this.alterAllergies.bind(this);
+  }
+  alterAllergies(allergies) {
+    this.setState({allergies});
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    let selectedPrefs = _.keysIn(_.pickBy(this.refs, 'checked'));
+    let selectedAllergies = this.state.allergies;
+    this.props.addToDB(selectedPrefs, selectedAllergies);
   }
   render () {
-    let checkBoxes = categories.map((category, index) => (
+    let checkBoxes = this.props.restaurants.map((restaurant, index) => (
       <label key={index}>
-        <input type="checkbox" onChange={this.handleChange} value={category}/>
-        {category}
+        <input type="checkbox" ref={restaurant.id}/>
+        {restaurant.name}
       </label>
     ));
     return (
       <div>
         <h2>Food Preferences</h2>
-        {checkBoxes}
+        <form onSubmit={this.handleSubmit}>
+          {checkBoxes}
+          <Allergy handleCheck={this.alterAllergies}/>
+          <button type="submit">Next</button>
+        </form>
       </div>
     )
   }
