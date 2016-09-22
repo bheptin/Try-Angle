@@ -24,9 +24,9 @@ class Friends extends Component {
   }
 
   AddFriendToList (users) {
-    console.log(users)
-    base.push(`users/iFiH3VX6IRal2d7ukB6bAdyQUHp2/friendsList`, {
-      data: users.personalInfo
+    console.log(this.props.uid)
+    base.push(`users/friendsList/${this.props.uid}`, {
+      data: users.key
     })
   }
 
