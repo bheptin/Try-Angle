@@ -20,11 +20,13 @@ class Friends extends Component {
     })
   }
 
+
   render () {
-    let fullNames = this.state.data.map((user, index) => <li key={index}>{user.personalInfo.firstName} {user.personalInfo.lastName}</li>);
+    let fullNames = this.state.data.map((user, index) => <li key={index}>{user.personalInfo.firstName} {user.personalInfo.lastName} <input type="checkbox"/></li>);
     return(
-      <div className="friendsList">
-        <ul style={{listStyleType: "none"}}>{fullNames}
+      <div className="Friends">
+          <h3>Friends List</h3>
+         <ul style={{listStyleType: "none"}}>{fullNames}
 
         </ul>
 
