@@ -15,14 +15,13 @@ class Friends extends Component {
 
   base.fetch(`users`, {
     context: this,
-    asArray: true
-  }).then(data => {
+    asArray: true,
+    then(data) {
     this.setState({data})
     console.log(data);
-  }).catch(error => {
-    console.log(error);
-  })
   }
+  })
+}
 
 
 
