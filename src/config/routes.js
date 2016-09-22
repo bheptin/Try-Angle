@@ -4,7 +4,7 @@ import App from '../App';
 import Home from '../Home';
 import Login from '../Login';
 import Signup from '../Signup';
-import Profile from '../Profile';
+import ProfileContainer from '../containers/ProfileContainer';
 
 const routes = (
   <Router history={browserHistory}>
@@ -13,7 +13,7 @@ const routes = (
       <Route path='login' component={Login} />
       <Route path='signup' component={Signup} />
       <Route path="home" component={Home}/>
-      <Route path='profile' component={Profile}/>
+      <Route path='profile' component={ProfileContainer}/>
     </Route>
   </Router>
 )
