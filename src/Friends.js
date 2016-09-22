@@ -12,18 +12,15 @@ class Friends extends Component {
 
   }
   componentDidMount(){
-
-  base.fetch(`users`, {
-    context: this,
-    asArray: true,
-    then(data) {
-    this.setState({data})
-    console.log(data);
-  }
-  })
+    base.fetch(`users`, {
+      context: this,
+      asArray: true,
+      then(data) {
+        this.setState({data})
+        console.log(data);
+      }
+    })
 }
-
-
 
   AddFriendToList (users) {
     console.log(users)
@@ -31,8 +28,6 @@ class Friends extends Component {
       data: users.personalInfo
     })
   }
-
-
 
   render () {
 

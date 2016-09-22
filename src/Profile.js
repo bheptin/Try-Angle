@@ -41,7 +41,6 @@ class Profile extends Component {
           <button type="submit" className="btn btn-primary">Next</button>
         </form>
         <div style={!this.state.foodPrefs ? {display: 'none'} : null}>
-          <FoodPref uid={this.props.uid}/>
         </div>
       </div>
     )
