@@ -40,8 +40,6 @@ class Profile extends Component {
           </div>
           <button type="submit" className="btn btn-primary">Next</button>
         </form>
-        <div style={!this.state.foodPrefs ? {display: 'none'} : null}>
-        </div>
       </div>
     )
   }
