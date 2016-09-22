@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-
-
 const headers = {'Authorization': 'Token token=supadupasecret'};
+const url = "https://fathomless-woodland-51903.herokuapp.com/search";
 
 function getRestaurants(categories = "restaurants") {
-  let url = "https://fathomless-woodland-51903.herokuapp.com/search";
   let data = {
     "search": {
       "location": 32801,

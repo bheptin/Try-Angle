@@ -7,7 +7,7 @@ class Choose extends Component {
     this.state = {filteredRestaurants: []};
   }
   componentDidMount() {
-    getRestaurants().then(filteredRestaurants => this.setState({filteredRestaurants}));
+    getRestaurants().then(filteredRestaurants => console.log(filteredRestaurants));
   }
   render () {
     let restaurants = this.state.filteredRestaurants.map((restaurant, index) => <li key={index}>{restaurant.name}</li>);

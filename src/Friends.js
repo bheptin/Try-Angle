@@ -10,16 +10,15 @@ class Friends extends Component {
 
   }
   componentDidMount(){
-  base.fetch(`users`, {
-    context: this,
-    asArray: true
-  }).then(data => {
-    this.setState({data})
-    console.log(data);
-  }).catch(error => {
-    console.log(error);
-  })
-}
+    base.fetch(`users`, {
+      context: this,
+      asArray: true,
+      then(data) {
+        this.setState({data})
+        console.log(data);
+      }
+    })
+  }
 
   render () {
     let fullNames = this.state.data.map((user, index) => <li key={index}>{user.personalInfo.firstName} {user.personalInfo.lastName}</li>);

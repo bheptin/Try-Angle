@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import Allergy from './Allergy';
 import base from './config/ReBase';
+import getRestaurants from './config/api';
 import _ from 'lodash';
-
-const categories = ["American", "Asian", "Indian", "Italian", "Mexican", "South American"];
 
 class FoodPref extends Component {
   constructor() {
@@ -21,17 +20,13 @@ class FoodPref extends Component {
     event.preventDefault();
     let selectedPrefs = _.keysIn(_.pickBy(this.refs, 'checked'));
     let selectedAllergies = this.state.allergies;
-    this.postToFirebase('foodPrefs', selectedPrefs);
-    this.postToFirebase('allergies', selectedAllergies);
-  }
-  postToFirebase(endpoint, data) {
-    base.post(`users/${this.props.uid}/${endpoint}`, {data});
+    this.props.addToDB(selectedPrefs, selectedAllergies);
   }
   render () {
-    let checkBoxes = categories.map((category, index) => (
+    let checkBoxes = this.props.restaurants.map((restaurant, index) => (
       <label key={index}>
-        <input type="checkbox" ref={category}/>
-        {category}
+        <input type="checkbox" ref={restaurant.id}/>
+        {restaurant.name}
       </label>
     ));
     return (
