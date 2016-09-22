@@ -13,13 +13,12 @@ class Signup extends Component {
     let email = this.refs.email.value;
     let password = this.refs.password.value;
     base.createUser ({email, password}, this.userHandler);
-    this.context.router.push('/profile');
   }
   userHandler (error, userData){
     if (error) {
       console.log(error);
     } else {
-      this.props.addUserToState(userData);
+      this.props.addUserToState(userData, "profile");
     }
   }
   render () {
@@ -38,10 +37,6 @@ class Signup extends Component {
       </form>
     )
   }
-}
-
-Signup.contextTypes = {
-  router: React.PropTypes.object.isRequired
 }
 
 export default Signup;

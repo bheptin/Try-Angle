@@ -5,12 +5,13 @@ class Login extends Component {
   constructor () {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.authHandler = this.authHandler.bind(this);
   }
   authHandler (error, userData) {
     if (error) {
       console.log(error)
     } else {
-      this.props.addUserToState(userData);
+      this.props.addUserToState(userData, "home");
     }
   }
   handleSubmit (event) {

@@ -10,8 +10,10 @@ class App extends Component {
     this.state = {user: {}};
     this.addUserToState = this.addUserToState.bind(this);
   }
-  addUserToState(user) {
+  addUserToState(user, path) {
     this.setState({user});
+    console.log("user id is ", this.state.user.uid);
+    this.context.router.push(`/${path}`);
   }
   render() {
     return (
@@ -80,6 +82,10 @@ class App extends Component {
       </div>
     );
   }
+}
+
+App.contextTypes = {
+  router: React.PropTypes.object.isRequired
 }
 
 export default App;

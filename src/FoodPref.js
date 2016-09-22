@@ -25,7 +25,7 @@ class FoodPref extends Component {
   render () {
     let checkBoxes = this.props.restaurants.map((restaurant, index) => (
       <label key={index}>
-        <input type="checkbox" ref={restaurant.id}/>
+        <input type="checkbox" ref={restaurant}/>
         {restaurant.name}
       </label>
     ));
