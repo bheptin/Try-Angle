@@ -7,7 +7,7 @@ class Mood extends Component {
     this.state = {userPrefs: []};
   }
   componentDidMount() {
-    base.fetch('users/${this.props.uid}/foodPrefs', {
+    base.fetch(`users/${this.props.uid}/foodPrefs`, {
       context: this,
       asArray: true,
       then(data){
