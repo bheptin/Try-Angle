@@ -1,19 +1,48 @@
 import React, { Component } from 'react';
-import { getRestaurants } from './config/api';
+import base from './config/ReBase';
+import _ from 'lodash';
 
 class Choose extends Component {
   constructor() {
     super();
-    this.state = {filteredRestaurants: []};
+    this.state = {
+      friendsChoices: [],
+      myChoices: []
+    };
   }
   componentDidMount() {
-    getRestaurants().then(filteredRestaurants => console.log(filteredRestaurants));
+    base.fetch(`users/${this.props.uid}/chosenRestaurants`, {
+      context: this,
+      asArray: true,
+      then(chosenRestaurants){
+        this.setState({chosenRestaurants});
+      }
+    });
+
+    base.fetch(`users/${this.props.uid}/selectedFriends`, {
+      context: this,
+      asArray: true,
+      then(selectedFriends){
+        selectedFriends.forEach(friendId => {
+          base.listenTo(`users/${friendId}/chosenRestaurants`, {
+            context: this,
+            asArray: true,
+            then(friendChoices){
+              let newFriendChoices = this.state.friendsChoices;
+              newFriendChoices = _.union(newFriendChoices, friendChoices);
+              let newMyChoices = this.state.myChoices;
+              newMyChoices = _.union(newMyChoices, newFriendChoices);
+              this.setState({myChoices: newMyChoices});
+            }
+          })
+        })
+      }
+    });
   }
   render () {
-    let restaurants = this.state.filteredRestaurants.map((restaurant, index) => <li key={index}>{restaurant.name}</li>);
     return (
       <ul>
-        {restaurants}
+        {this.state.myChoices}
       </ul>
     )
   }

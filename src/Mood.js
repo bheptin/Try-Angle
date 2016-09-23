@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Choose from './Choose';
 import base from './config/ReBase';
 import _ from 'lodash';
 
@@ -36,6 +37,7 @@ class Mood extends Component {
     return (
       <div>
         {checkboxes}
+        <Choose uid={this.props.uid}/>
       </div>
     )
   }
