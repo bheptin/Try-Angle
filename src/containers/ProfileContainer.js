@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import getRestaurants from '../config/api';
+import { getRestaurants } from '../config/api';
 import FoodPref from '../FoodPref';
 import Profile from '../Profile';
 import base from '../config/ReBase';

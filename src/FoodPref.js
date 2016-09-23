@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Allergy from './Allergy';
 import base from './config/ReBase';
-import getRestaurants from './config/api';
+import { getRestaurants } from './config/api';
 import _ from 'lodash';
 
 class FoodPref extends Component {
   constructor() {
     super();
     this.state = {
+      selectedRestaurants: {},
       allergies: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,7 +26,7 @@ class FoodPref extends Component {
   render () {
     let checkBoxes = this.props.restaurants.map((restaurant, index) => (
       <label key={index}>
-        <input type="checkbox" ref={restaurant}/>
+        <input type="checkbox" ref={restaurant.id}/>
         {restaurant.name}
       </label>
     ));

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import getRestaurants from './config/api';
+import { getRestaurants } from './config/api';
 
 class Choose extends Component {
   constructor() {
