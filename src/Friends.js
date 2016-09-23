@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import base from './config/ReBase';
+import _ from 'lodash';
 
 
 class Friends extends Component {
@@ -7,9 +8,10 @@ class Friends extends Component {
     super(props)
       this.state = {
         data: [],
-        selectedFriend: []
+        selectedFriends: [],
+        friendsList: []
       }
-
+      this.addSelected = this.addSelected.bind(this);
   }
   componentDidMount(){
 
@@ -24,16 +26,28 @@ class Friends extends Component {
     base.syncState(`users/${this.props.uid}/friendsList`, {
       context: this,
       asArray: true,
-      state: 'selectedFriend'
+      state: 'friendsList'
+    })
+
+    base.syncState(`users/${this.props.uid}/selectedFriends`, {
+      context: this,
+      asArray: true,
+      state: 'selectedFriends'
     })
   }
 
+  addSelected (users) {
+    let selectedFriends = _.keysIn(_.pickBy(this.refs, 'checked'));
+    this.setState({selectedFriends});
+
+
+  }
   AddFriendToList (users) {
     console.log(users.key)
-    if (this.state.selectedFriend.includes(users.key)){
+    if (this.state.friendsList.includes(users.key)){
       console.log(users.key)
     } else {
-      this.setState({selectedFriend: [...this.state.selectedFriend, users.key]})
+      this.setState({friendsList: [...this.state.friendsList, users.key]})
     }
 
   }
@@ -41,7 +55,7 @@ class Friends extends Component {
 
   render () {
 
-    let fullNames = this.state.data.map((users, index) => <li key={index}> {users.personalInfo.firstName} {users.personalInfo.lastName} <button onClick={this.AddFriendToList.bind(this, users)}type="button" className="btn btn-primary btn-xs">Add</button> <input type="checkbox"/></li>);
+    let fullNames = this.state.data.map((users, index) => <li key={index}> {users.personalInfo.firstName} {users.personalInfo.lastName} <button onClick={this.AddFriendToList.bind(this, users)}type="button" className="btn btn-primary btn-xs">Add</button> <input ref={users.key} onChange={this.addSelected} type="checkbox"/></li>);
     return(
       <div className="Friends">
           <h3>Friends List</h3>
