@@ -12,6 +12,7 @@ class Friends extends Component {
 
   }
   componentDidMount(){
+
     base.fetch(`users`, {
       context: this,
       asArray: true,
@@ -20,19 +21,27 @@ class Friends extends Component {
         console.log(data);
       }
     })
-}
-
-  AddFriendToList (users) {
-    console.log(users)
-    base.push(`try-angle/users/friendsList`, {
-      data: users.personalInfo
+    base.syncState(`users/${this.props.uid}/friendsList`, {
+      context: this,
+      asArray: true,
+      state: 'selectedFriend'
     })
   }
 
+  AddFriendToList (users) {
+    console.log(users.key)
+    if (this.state.selectedFriend.includes(users.key)){
+      console.log(users.key)
+    } else {
+      this.setState({selectedFriend: [...this.state.selectedFriend, users.key]})
+    }
+
+  }
+
+
   render () {
 
-    let fullNames = this.state.data.map((user, index) => <li key={index}>{user.personalInfo.firstName} {user.personalInfo.lastName}
-    <button onClick={this.AddFriendToList.bind(this, user)}type="button" className="btn btn-primary btn-xs">Add</button><input type="checkbox"/></li>);
+    let fullNames = this.state.data.map((users, index) => <li key={index}> {users.personalInfo.firstName} {users.personalInfo.lastName} <button onClick={this.AddFriendToList.bind(this, users)}type="button" className="btn btn-primary btn-xs">Add</button> <input type="checkbox"/></li>);
     return(
       <div className="Friends">
           <h3>Friends List</h3>
