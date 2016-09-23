@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import base from './config/ReBase';
 import _ from 'lodash';
+import { getRestaurantsById } from './config/api';
 
 class Mood extends Component {
   constructor() {
@@ -12,6 +13,7 @@ class Mood extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
+    getRestaurantsById("artisans-table-orlando")
     base.fetch(`users/${this.props.uid}/foodPrefs`, {
       context: this,
       asArray: true,

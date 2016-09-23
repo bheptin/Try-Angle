@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Allergy from './Allergy';
 import base from './config/ReBase';
-import getRestaurants from './config/api';
+import { getRestaurants } from './config/api';
 import _ from 'lodash';
 
 class FoodPref extends Component {
