@@ -8,6 +8,7 @@ class FoodPref extends Component {
   constructor() {
     super();
     this.state = {
+      selectedRestaurants: {},
       allergies: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,7 +26,7 @@ class FoodPref extends Component {
   render () {
     let checkBoxes = this.props.restaurants.map((restaurant, index) => (
       <label key={index}>
-        <input type="checkbox" ref={restaurant}/>
+        <input type="checkbox" ref={restaurant.id}/>
         {restaurant.name}
       </label>
     ));
