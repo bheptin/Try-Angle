@@ -5,44 +5,26 @@ import _ from 'lodash';
 class Choose extends Component {
   constructor() {
     super();
-    this.state = {
-      friendsChoices: [],
-      myOptions: []
-    };
+    this.state = {};
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps){
     nextProps.selectedFriends.forEach(friendId => {
-      base.fetch(`users/${friendId}/chosenRestaurants`, {
+      this.state[friendId] = [];
+      this.setState(this.state);
+      base.syncState(`users/${friendId}/chosenRestaurants`, {
         context: this,
-        asArray: true,
-        then(friendChoices){
-          this.updateMyChoices(friendChoices);
-        }
+        state: friendId,
+        asArray: true
       });
-      base.listenTo(`users/${friendId}/chosenRestaurants`, {
-        context: this,
-        asArray: true,
-        then(friendChoices) {
-          this.updateMyChoices(friendChoices);
-        }
-      })
     })
   }
-  updateMyChoices(friendChoices) {
-    let newFriendsChoices = this.state.friendsChoices;
-    newFriendsChoices = _.union(newFriendsChoices, friendChoices);
-    this.setState({friendsChoices: newFriendsChoices});
-    let myChoices = this.props.foodPrefs;
-    myChoices = _.union(myChoices, this.state.friendsChoices);
-    this.setState({myOptions: myChoices});
-  }
   render () {
-    let checkboxes = this.state.myOptions.map(choice => <label><input type="checkbox"/>{choice}</label>);
+    // let commonChoices = stuff to combine all state stuff
+    // let checkboxes = commonChoices.map(choice => <label><input type="checkbox"/>{choice}</label>);
     return (
       <div style={{border: "3px solid green"}}>
         <h2>Here is your options! Pick 3:</h2>
         <ul>
-          {checkboxes}
         </ul>
       </div>
     )
