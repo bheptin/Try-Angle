@@ -13,11 +13,11 @@ function getRestaurants(categories = "restaurants") {
   return axios({method: 'post', url, headers, data}).then(response => response.data.businesses);
 }
 
-function getRestaurantsById(id) {
+function getRestaurantById(id) {
   let data = {
     "id": "artisans-table-orlando"
   };
-  axios({method: 'post', url, headers, data}).then(response => console.log(response));
+  return axios({method: 'post', url, headers, data}).then(response => response.data);
 }
 
-export { getRestaurants, getRestaurantsById };
+export { getRestaurants, getRestaurantById };
