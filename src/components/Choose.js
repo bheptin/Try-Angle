@@ -19,11 +19,10 @@ class Choose extends Component {
     })
   }
   render () {
-    // let commonChoices = stuff to combine all state stuff
-    // let checkboxes = commonChoices.map(choice => <label><input type="checkbox"/>{choice}</label>);
+
     return (
       <div style={{border: "3px solid green"}}>
-        <h2>Here's your options! Pick 3:</h2>
+        <h2>Here is your options! Pick 3:</h2>
         <ul>
         </ul>
       </div>
