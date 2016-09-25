@@ -33,14 +33,14 @@ class Choose extends Component {
     newFriendsChoices = _.union(newFriendsChoices, friendChoices);
     this.setState({friendsChoices: newFriendsChoices});
     let myChoices = this.props.foodPrefs;
-    newMyChoices = _.union(newMyChoices, this.state.friendsChoices);
-    this.setState({myOptions: newMyChoices});
+    myChoices = _.union(myChoices, this.state.friendsChoices);
+    this.setState({myOptions: myChoices});
   }
   render () {
     let checkboxes = this.state.myOptions.map(choice => <label><input type="checkbox"/>{choice}</label>);
     return (
       <div style={{border: "3px solid green"}}>
-        <h2>Here's your options! Pick 3:</h2>
+        <h2>Here is your options! Pick 3:</h2>
         <ul>
           {checkboxes}
         </ul>
