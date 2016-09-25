@@ -35,7 +35,7 @@ class Friends extends Component {
     }
   }
   render () {
-    let friendsList = this.state.users.map((user, index) => (
+    let friendsList = this.state.users.filter(user => user.key !== this.props.uid).map((user, index) => (
       <li key={index}> {user.personalInfo.firstName} {user.personalInfo.lastName}
         <button onClick={this.AddFriendToList.bind(this, user)}type="button" className="btn btn-primary btn-xs">Add</button>
         <input ref={user.key} onChange={this.addSelected} type="checkbox"/>

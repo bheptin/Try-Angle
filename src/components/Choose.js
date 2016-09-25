@@ -6,16 +6,29 @@ class Choose extends Component {
   constructor() {
     super();
     this.state = {};
+    this.syncStateForFriends = this.syncStateForFriends.bind(this);
   }
-  componentWillReceiveProps(nextProps){
-    nextProps.selectedFriends.forEach(friendId => {
-      this.state[friendId] = [];
-      this.setState(this.state);
-      base.syncState(`users/${friendId}/chosenRestaurants`, {
-        context: this,
-        state: friendId,
-        asArray: true
-      });
+  componentWillReceiveProps(nextProps) {
+    base.reset();
+    this.syncStateForFriends(nextProps);
+  }
+  componentDidMount(){
+    this.syncStateForFriends(this.props);
+  }
+  componentWillUnmount(){
+    base.reset();
+  }
+  syncStateForFriends(props) {
+    props.selectedFriends.forEach(friendId => {
+      if (friendId != this.props.uid) {
+        this.state[friendId] = [];
+        this.setState(this.state);
+        base.syncState(`users/${friendId}/chosenRestaurants`, {
+          context: this,
+          state: friendId,
+          asArray: true
+        });
+      }
     })
   }
   render () {
