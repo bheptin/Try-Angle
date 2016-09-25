@@ -3,6 +3,7 @@ import Choose from './Choose';
 import Friends from './Friends.js';
 import Mood from './Mood';
 import base from '../config/ReBase';
+import { getRestaurantById } from '../config/api';
 
 class Home extends Component {
   constructor() {
@@ -20,7 +21,11 @@ class Home extends Component {
       context: this,
       asArray: true,
       then(userPrefs) {
-        this.setState({userPrefs});
+        userPrefs.forEach(userPref => {
+          getRestaurantById(userPref).then(restaurant => {
+            this.setState({userPrefs: [...this.state.userPrefs, restaurant]});
+          });
+        });
       }
     })
     base.syncState(`users/${this.props.uid}/selectedFriends`, {
@@ -46,7 +51,7 @@ class Home extends Component {
         <h4>Home</h4>
         <Friends uid={this.props.uid} handleCheck={this.updateSelectedFriends}/>
         <Mood uid={this.props.uid} userPrefs={this.state.userPrefs} handleCheck={this.updateChosenRestaurants}/>
-        <Choose selectedFriends={this.state.selectedFriends} userPrefs={this.state.userPrefs}/>
+        <Choose selectedFriends={this.state.selectedFriends} userPrefs={this.state.userPrefs} uid={this.props.uid}/>
       </div>
     )
   }
