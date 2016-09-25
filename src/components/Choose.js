@@ -20,17 +20,15 @@ class Choose extends Component {
     })
   }
   render () {
-    console.log("this");
-  let myChoices = this.props.userPrefs.map((mine, index) => <li key={index}>{choice}</li> );
-  let theirChoices = this.state.friendId.map(choice => <label><input type="checkbox"/></label>);
+
     return (
       <div style={{border: "3px solid green"}}>
         <h2>Here is your options! Pick 3:</h2>
         <ul className="myChoices">
-        {myChoices}
+
         </ul>
         <ul className="theirChoices">
-          {theirChoices}
+
         </ul>
       </div>
     )

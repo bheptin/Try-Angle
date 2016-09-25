@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getRestaurants } from '../config/api';
-import FoodPref from '../FoodPref';
-import Profile from '../Profile';
+import FoodPref from '../components/FoodPref';
+import Profile from '../components/Profile';
 import base from '../config/ReBase';
 
 class ProfileContainer extends Component {
