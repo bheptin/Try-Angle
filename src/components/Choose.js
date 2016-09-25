@@ -16,15 +16,21 @@ class Choose extends Component {
         state: friendId,
         asArray: true
       });
+
     })
   }
   render () {
-    // let commonChoices = stuff to combine all state stuff
-    // let checkboxes = commonChoices.map(choice => <label><input type="checkbox"/>{choice}</label>);
+      
+  let myChoices = this.props.userPrefs.map((mine, index) => <li key={index}>{choice}</li> );
+  let theirChoices = this.state.friendId.map(choice => <label><input type="checkbox"/></label>);
     return (
       <div style={{border: "3px solid green"}}>
         <h2>Here is your options! Pick 3:</h2>
-        <ul>
+        <ul className="myChoices">
+        {myChoices}
+        </ul>
+        <ul className="theirChoices">
+          {theirChoices}
         </ul>
       </div>
     )
