@@ -32,6 +32,8 @@ class Choose extends Component {
     })
   }
   render () {
+    let theirChoices = _.valuesIn(this.state);
+    console.log(theirChoices);
     return (
       <div style={{border: "3px solid green"}}>
         <h2>Here is your options! Pick 3:</h2>
