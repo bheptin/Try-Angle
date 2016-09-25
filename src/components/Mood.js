@@ -13,8 +13,8 @@ class Mood extends Component {
   render () {
     let checkboxes = this.props.userPrefs.map((restaurant, index) => (
       <label key={index}>
-        <input type="checkbox" aria-label="..." ref={restaurant} onChange={this.handleChange}/>
-        {restaurant}
+        <input type="checkbox" aria-label="..." ref={restaurant.id} onChange={this.handleChange}/>
+        {restaurant.name}
       </label>
     ));
     return (
