@@ -11,3 +11,23 @@ body {
   text-align: left;
 
 }
+.Friends h3{
+  text-align: left;
+  margin-left: 80px;
+  width: 200px;
+  color: #6798cd;
+}
+.Friends ul {
+  color: #6798cd;
+  border-style: solid;
+  border-color: #2A619E;
+  text-align: right;
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 20px;
+  padding: 0px;
+  width: 310px;
+  height: 100px;
+  overflow: hidden;
+  overflow-y: auto;
+}

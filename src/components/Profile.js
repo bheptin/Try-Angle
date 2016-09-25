@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import base from './config/ReBase';
-import FoodPref from './FoodPref';
+import base from '../config/ReBase';
 
 class Profile extends Component {
   constructor() {
@@ -40,9 +39,6 @@ class Profile extends Component {
           </div>
           <button type="submit" className="btn btn-primary">Next</button>
         </form>
-        <div style={!this.state.foodPrefs ? {display: 'none'} : null}>
-          <FoodPref uid={this.props.uid}/>
-        </div>
       </div>
     )
   }

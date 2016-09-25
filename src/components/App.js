@@ -1,8 +1,5 @@
 import React, { Component, cloneElement } from 'react';
-import Login from './Login.js';
-import Signup from './Signup.js';
-
-import './App.css';
+import '../App.css';
 
 class App extends Component {
   constructor() {
@@ -10,8 +7,10 @@ class App extends Component {
     this.state = {user: {}};
     this.addUserToState = this.addUserToState.bind(this);
   }
-  addUserToState(user) {
+  addUserToState(user, path) {
     this.setState({user});
+    console.log("user id is ", this.state.user.uid);
+    this.context.router.push(`/${path}`);
   }
   render() {
     return (
@@ -80,6 +79,10 @@ class App extends Component {
       </div>
     );
   }
+}
+
+App.contextTypes = {
+  router: React.PropTypes.object.isRequired
 }
 
 export default App;

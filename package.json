@@ -8,6 +8,7 @@
   "dependencies": {
     "axios": "^0.14.0",
     "firebase": "^3.4.0",
+    "lodash": "^4.16.1",
     "re-base": "^2.2.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
