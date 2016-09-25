@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 const headers = {'Authorization': 'Token token=supadupasecret'};
-const url = "https://fathomless-woodland-51903.herokuapp.com/search";
 
 function getRestaurants(categories = "restaurants") {
+  let url = "https://fathomless-woodland-51903.herokuapp.com/search";
   let data = {
     "search": {
       "location": 32801,
@@ -14,10 +14,8 @@ function getRestaurants(categories = "restaurants") {
 }
 
 function getRestaurantById(id) {
-  let data = {
-    "id": "artisans-table-orlando"
-  };
-  return axios({method: 'post', url, headers, data}).then(response => response.data);
+  let url = `https://fathomless-woodland-51903.herokuapp.com/businesses/${id}`;
+  return axios({method: 'get', url, headers}).then(response => response.data);
 }
 
 export { getRestaurants, getRestaurantById };

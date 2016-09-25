@@ -35,10 +35,7 @@ class Choose extends Component {
     return (
       <div style={{border: "3px solid green"}}>
         <h2>Here is your options! Pick 3:</h2>
-        <ul className="myChoices">
-        </ul>
-        <ul className="theirChoices">
-
+        <ul>
         </ul>
       </div>
     )
