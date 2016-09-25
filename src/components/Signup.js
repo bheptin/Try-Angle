@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import base from './config/ReBase';
-import FoodPref from './FoodPref';
+import base from '../config/ReBase';
 
 class Signup extends Component {
   constructor () {

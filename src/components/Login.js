@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import base from './config/ReBase';
+import base from '../config/ReBase';
 
 class Login extends Component {
   constructor () {

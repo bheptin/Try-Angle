@@ -1,8 +1,5 @@
 import React, { Component, cloneElement } from 'react';
-import Login from './Login.js';
-import Signup from './Signup.js';
-
-import './App.css';
+import '../App.css';
 
 class App extends Component {
   constructor() {
