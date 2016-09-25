@@ -36,7 +36,7 @@ class Choose extends Component {
       <div style={{border: "3px solid green"}}>
         <h2>Here is your options! Pick 3:</h2>
         <ul className="myChoices">
-
+          <li>me</li>
         </ul>
         <ul className="theirChoices">
 
