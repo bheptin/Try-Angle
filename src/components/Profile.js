@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import base from '../config/ReBase';
-import FoodPref from './FoodPref';
 
 class Profile extends Component {
   constructor() {

@@ -7,43 +7,44 @@ class Choose extends Component {
     super();
     this.state = {
       friendsChoices: [],
-      myChoices: []
+      myOptions: []
     };
   }
-  componentDidMount() {
-    base.fetch(`users/${this.props.uid}/chosenRestaurants`, {
-      context: this,
-      asArray: true,
-      then(chosenRestaurants){
-        this.setState({chosenRestaurants});
-      }
-    });
-
-    base.fetch(`users/${this.props.uid}/selectedFriends`, {
-      context: this,
-      asArray: true,
-      then(selectedFriends){
-        selectedFriends.forEach(friendId => {
-          base.listenTo(`users/${friendId}/chosenRestaurants`, {
-            context: this,
-            asArray: true,
-            then(friendChoices){
-              let newFriendChoices = this.state.friendsChoices;
-              newFriendChoices = _.union(newFriendChoices, friendChoices);
-              let newMyChoices = this.state.myChoices;
-              newMyChoices = _.union(newMyChoices, newFriendChoices);
-              this.setState({myChoices: newMyChoices});
-            }
-          })
-        })
-      }
-    });
+  componentWillReceiveProps(nextProps) {
+    nextProps.selectedFriends.forEach(friendId => {
+      base.fetch(`users/${friendId}/chosenRestaurants`, {
+        context: this,
+        asArray: true,
+        then(friendChoices){
+          this.updateMyChoices(friendChoices);
+        }
+      });
+      base.listenTo(`users/${friendId}/chosenRestaurants`, {
+        context: this,
+        asArray: true,
+        then(friendChoices) {
+          this.updateMyChoices(friendChoices);
+        }
+      })
+    })
+  }
+  updateMyChoices(friendChoices) {
+    let newFriendsChoices = this.state.friendsChoices;
+    newFriendsChoices = _.union(newFriendsChoices, friendChoices);
+    this.setState({friendsChoices: newFriendsChoices});
+    let myChoices = this.props.foodPrefs;
+    newMyChoices = _.union(newMyChoices, this.state.friendsChoices);
+    this.setState({myOptions: newMyChoices});
   }
   render () {
+    let checkboxes = this.state.myOptions.map(choice => <label><input type="checkbox"/>{choice}</label>);
     return (
-      <ul>
-        {this.state.myChoices}
-      </ul>
+      <div style={{border: "3px solid green"}}>
+        <h2>Here's your options! Pick 3:</h2>
+        <ul>
+          {checkboxes}
+        </ul>
+      </div>
     )
   }
 }

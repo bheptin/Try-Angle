@@ -7,62 +7,46 @@ class Friends extends Component {
   constructor (props) {
     super(props)
       this.state = {
-        data: [],
-        selectedFriends: [],
+        users: [],
         friendsList: []
       }
-      this.addSelected = this.addSelected.bind(this);
   }
   componentDidMount(){
-
     base.fetch(`users`, {
       context: this,
       asArray: true,
-      then(data) {
-        this.setState({data})
-        console.log(data);
+      then(users) {
+        this.setState({users})
       }
     })
-    base.syncState(`users/${this.props.uid}/friendsList`, {
+    base.syncState(`user/${this.props.uid}/friendsList`, {
       context: this,
       asArray: true,
       state: 'friendsList'
     })
-
-    base.syncState(`users/${this.props.uid}/selectedFriends`, {
-      context: this,
-      asArray: true,
-      state: 'selectedFriends'
-    })
   }
-
-  addSelected (users) {
+  addSelected() {
     let selectedFriends = _.keysIn(_.pickBy(this.refs, 'checked'));
-    this.setState({selectedFriends});
-
-
+    this.props.handleCheck(selectedFriends);
   }
-  AddFriendToList (users) {
-    console.log(users.key)
-    if (this.state.friendsList.includes(users.key)){
-      console.log(users.key)
-    } else {
-      this.setState({friendsList: [...this.state.friendsList, users.key]})
+  AddFriendToList (user) {
+    if ( !( this.state.friendsList.includes(user.key) ) ){
+      this.setState({friendsList: [...this.state.friendsList, user.key]})
     }
-
   }
-
-
   render () {
-
-    let fullNames = this.state.data.map((users, index) => <li key={index}> {users.personalInfo.firstName} {users.personalInfo.lastName} <button onClick={this.AddFriendToList.bind(this, users)}type="button" className="btn btn-primary btn-xs">Add</button> <input ref={users.key} onChange={this.addSelected} type="checkbox"/></li>);
+    let friendsList = this.state.users.map((user, index) => (
+      <li key={index}> {user.personalInfo.firstName} {user.personalInfo.lastName}
+        <button onClick={this.AddFriendToList.bind(this, user)}type="button" className="btn btn-primary btn-xs">Add</button>
+        <input ref={user.key} onChange={this.addSelected} type="checkbox"/>
+      </li>
+    ));
     return(
       <div className="Friends">
-          <h3>Friends List</h3>
-         <ul style={{listStyleType: "none"}}>{fullNames}
-
+        <h3>Friends List</h3>
+        <ul style={{listStyleType: "none"}}>
+          {friendsList}
         </ul>
-
       </div>
     )
   }
