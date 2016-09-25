@@ -20,7 +20,7 @@ class Choose extends Component {
     })
   }
   render () {
-
+      console.log(this.state);
     return (
       <div style={{border: "3px solid green"}}>
         <h2>Here is your options! Pick 3:</h2>
