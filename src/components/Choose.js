@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Select from './Select';
 import base from '../config/ReBase';
 import _ from 'lodash';
 
@@ -10,34 +11,43 @@ class Choose extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    //base.reset();
-    this.listenForFriendChanges(nextProps);
+    let currentListeners = _.keysIn(this.ref);
+    let listenersToRemove = _.difference(currentListeners, nextProps.selectedFriends);
+    let listenersToAdd = _.difference(nextProps.selectedFriends, currentListeners);
+    this.listenForFriendChanges(listenersToAdd);
+    this.removeListeners(listenersToRemove);
   }
   componentDidMount(){
+    this.ref = {};
     this.props.selectedFriends.forEach(friendId => {
       base.fetch(`users/${friendId}/chosenRestaurants`, {
         context: this,
         asArray: true,
         then(friendChoices) {
-          this.state.friendsChoices[friendId] = friendChoices;
-          this.setState(this.state);
+          let newFriendChoices = Object.assign({}, this.state.friendsChoices, {friendId: friendChoices});
+          this.setState({friendsChoices: newFriendChoices});
         }
       });
     });
-    this.listenForFriendChanges(this.props);
+    this.listenForFriendChanges(this.props.selectedFriends);
   }
   componentWillUnmount(){
-    base.reset();
+    this.removeListeners(_.keysIn(this.ref));
   }
-  listenForFriendChanges(props) {
-    props.selectedFriends.forEach(friendId => {
+  removeListeners(listeners) {
+    listeners.forEach(listener => {
+      base.removeBinding(this.ref[listener]);
+    })
+  }
+  listenForFriendChanges(friends) {
+    friends.forEach(friendId => {
       if (friendId !== this.props.uid) {
-        base.listenTo(`users/${friendId}/chosenRestaurants`, {
+        this.ref[friendId] = base.listenTo(`users/${friendId}/chosenRestaurants`, {
           context: this,
           asArray: true,
           then(friendChoices) {
-            this.state.friendsChoices[friendId] = friendChoices;
-            this.setState(this.state);
+            let newFriendChoices = Object.assign({}, this.state.friendsChoices, {friendId: friendChoices});
+            this.setState({friendsChoices: newFriendChoices});
           }
         });
       }
@@ -49,15 +59,12 @@ class Choose extends Component {
   }
   render () {
     let myCheckboxes = this.props.userPrefs.map((restaurant, index) => (
-      <label key={index}>
-        <input type="checkbox" aria-label="..." ref={restaurant.id} onChange={this.handleChange}/>
-        {restaurant.name}
-      </label>
-    ));
-    let mySelects = this.props.userPrefs.map((restaurant, index) => (
-      <option key={index} multiple>
-        {restaurant.name}
-      </option>
+      <div>
+        <label key={index}>
+          <input type="checkbox" aria-label="..." ref={restaurant.id} onChange={this.handleChange}/>
+          {restaurant.name}
+        </label>
+      </div>
     ));
     let theirCheckboxes = _.valuesIn(this.state.friendsChoices).map((friendChoices, index) => (
       <div className="their-choices" key={index}>
@@ -67,26 +74,14 @@ class Choose extends Component {
         ))}
       </div>
     ));
-    let theirSelects = _.valuesIn(this.state.friendsChoices).map((friendChoices, index) => (
-      <select className="mobile" key={index} multiple>
-        Friend Choices
-        {friendChoices.map((friendChoice, index) => (
-          <option key={index}>{friendChoice}</option>
-        ))}
-      </select>
-    ));
     return (
       <div style={{border: "3px solid green"}}>
         <div className="my-choices">
           <h2>My Choices</h2>
           {myCheckboxes}
+          <Select myChoices={this.props.userPrefs}/>
         </div>
-        <select className="mobile" multiple>
-          My Choices
-          {mySelects}
-        </select>
         {theirCheckboxes}
-        {theirSelects}
       </div>
     )
   }
