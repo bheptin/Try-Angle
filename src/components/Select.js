@@ -12,7 +12,6 @@ class MobileSelect extends Component {
   handleSelect(value) {
     this.setState({value});
   }
-  handleCheck()
   render() {
     let options = this.props.myChoices.map(choice => {
       return {value: choice.id, label: choice.name}

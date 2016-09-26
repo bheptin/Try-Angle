@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MobileSelect from './MobileSelect';
+import Select from './Select';
 import base from '../config/ReBase';
 import _ from 'lodash';
 
@@ -79,7 +79,7 @@ class Choose extends Component {
         <div className="my-choices">
           <h2>My Choices</h2>
           {myCheckboxes}
-          <MobileSelect myChoices={this.props.userPrefs}/>
+          <Select myChoices={this.props.userPrefs}/>
         </div>
         {theirCheckboxes}
       </div>
