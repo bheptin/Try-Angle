@@ -20,10 +20,8 @@ class Home extends Component {
       context: this,
       asArray: true,
       then(userPrefs) {
-        console.log(userPrefs);
         userPrefs.forEach(userPref => {
           getRestaurantById(userPref).then(restaurant => {
-            console.log(restaurant);
             this.setState({userPrefs: [...this.state.userPrefs, restaurant]});
           });
         });
