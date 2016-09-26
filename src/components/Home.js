@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Choose from './Choose';
 import Friends from './Friends.js';
-import Mood from './Mood';
 import base from '../config/ReBase';
 import { getRestaurantById } from '../config/api';
 
@@ -48,10 +47,12 @@ class Home extends Component {
   render () {
     return (
       <div>
-        <h4>Home</h4>
         <Friends uid={this.props.uid} handleCheck={this.updateSelectedFriends}/>
-        <Mood uid={this.props.uid} userPrefs={this.state.userPrefs} handleCheck={this.updateChosenRestaurants}/>
-        <Choose selectedFriends={this.state.selectedFriends} userPrefs={this.state.userPrefs} uid={this.props.uid}/>
+        <Choose
+          selectedFriends={this.state.selectedFriends}
+          userPrefs={this.state.userPrefs}
+          uid={this.props.uid}
+          handleCheck={this.updateChosenRestaurants}/>
       </div>
     )
   }

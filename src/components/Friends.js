@@ -6,10 +6,11 @@ import _ from 'lodash';
 class Friends extends Component {
   constructor (props) {
     super(props)
-      this.state = {
-        users: [],
-        friendsList: []
-      }
+    this.state = {
+      users: [],
+      friendsList: []
+    }
+    this.addSelected = this.addSelected.bind(this);
   }
   componentDidMount(){
     base.fetch(`users`, {
