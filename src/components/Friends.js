@@ -10,7 +10,7 @@ class Friends extends Component {
       users: [],
       friendsList: []
     }
-    this.addSelected = tis.addSelected.bind(this);
+    this.addSelected = this.addSelected.bind(this);
   }
   componentDidMount(){
     base.fetch(`users`, {
