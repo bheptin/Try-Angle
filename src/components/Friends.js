@@ -20,7 +20,7 @@ class Friends extends Component {
         this.setState({users})
       }
     })
-    base.syncState(`user/${this.props.uid}/friendsList`, {
+    base.syncState(`users/${this.props.uid}/friendsList`, {
       context: this,
       asArray: true,
       state: 'friendsList'
