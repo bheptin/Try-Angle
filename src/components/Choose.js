@@ -10,7 +10,7 @@ class Choose extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    base.reset();
+    //base.reset();
     this.listenForFriendChanges(nextProps);
   }
   componentDidMount(){
