@@ -18,14 +18,14 @@ class Friends extends Component {
       asArray: true,
       then(users) {
         this.setState({users})
-      }
-    })
-    base.syncState(`user/${this.props.uid}/friendsList`, {
+    base.syncState(`users/${this.props.uid}/friendsList`, {
       context: this,
       asArray: true,
       state: 'friendsList'
     })
   }
+  })
+}
   addSelected() {
     let selectedFriends = _.keysIn(_.pickBy(this.refs, 'checked'));
     this.props.handleCheck(selectedFriends);
