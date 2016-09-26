@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import base from '../config/ReBase';
 
 class Login extends Component {
@@ -23,19 +24,20 @@ class Login extends Component {
 
   render () {
     return (
-      <div>
+      <div className="center-block" style={{width: "30%"}}>
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
+          <div className="form-group" className="center-block">
             <label>Email address</label>
             <input type="email" ref="email" className="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter email"/>
             <small id="emailHelp" className="form-text text-muted">We never share your email with anyone else.</small>
           </div>
-          <div className="form-group">
+          <div className="form-group" className="center-block">
             <label>Password</label>
             <input type="password" ref="password" className="form-control" id="exampleInputPassword" placeholder="Password"/>
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
+        <Link to="signup"><button className="btn btn-secondary">Sign Up!</button></Link>
       </div>
     )
   }
