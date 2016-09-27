@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Select from './Select';
 import base from '../config/ReBase';
 import _ from 'lodash';
+import AngleMade from './AngleMade.js';
 
 class Choose extends Component {
   constructor() {
@@ -63,6 +64,7 @@ class Choose extends Component {
         <label key={index}>
           <input type="checkbox" aria-label="..." ref={restaurant.id} onChange={this.handleChange}/>
           {restaurant.name}
+          <img src={restaurant.image_url} style={{width: "40px", height: "40px"}} alt="..." className="img-thumbnail"/>
         </label>
       </div>
     ));
@@ -70,9 +72,13 @@ class Choose extends Component {
       <div className="their-choices" key={index}>
         <h2>Friend Choices</h2>
         {friendChoices.map((friendChoice, index) => (
-          <label key={index}><input type="checkbox" ref={friendChoice} onChange={this.handleChange}/>{friendChoice}</label>
+          <label key={index}><input type="checkbox" ref={friendChoice} onChange={this.handleChange}/>
+          {friendChoice}
+          <img src={this.props.userPrefs.images} style={{width: "40px", height: "40px"}} alt="..." className="img-thumbnail"/>
+          </label>
         ))}
       </div>
+
     ));
     return (
       <div style={{border: "3px solid green"}}>
@@ -81,8 +87,12 @@ class Choose extends Component {
           {myCheckboxes}
           <Select myChoices={this.props.userPrefs}/>
         </div>
-        {theirCheckboxes}
+        <div className="their-choices">
+          {theirCheckboxes}
+        </div>
+        <AngleMade finalDecision={this.props.chosenRestaurants}/>
       </div>
+
     )
   }
 }
