@@ -6,7 +6,6 @@ import 'react-select/dist/react-select.css';
 class MobileSelect extends Component {
   constructor() {
     super();
-    this.state = {value: []};
     this.handleSelect = this.handleSelect.bind(this);
   }
   handleSelect(value) {
@@ -21,18 +20,10 @@ class MobileSelect extends Component {
         <MediaQuery query='(max-width: 700px)'>
           <Select
             multi={true}
-            value={this.state.value}
+            value={this.props.chosenRestaurants}
             placeholder="Make some choices"
             options={options}
             onChange={this.handleSelect}/>
-        </MediaQuery>
-        <MediaQuery query='(min-width: 701px)'>
-          <Select
-            multi={true}
-            value={this.state.value}
-            placeholder=""
-            searchable={false}
-            noResultsText={false}/>
         </MediaQuery>
       </div>
     )
@@ -40,3 +31,12 @@ class MobileSelect extends Component {
 }
 
 export default MobileSelect;
+
+// <MediaQuery query='(min-width: 701px)'>
+//   <Select
+//     multi={true}
+//     value={this.props.chosenRestaurants}
+//     placeholder=""
+//     searchable={false}
+//     noResultsText={false}/>
+// </MediaQuery>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Choose from './Choose.js';
+import ChooseContainer from '../containers/ChooseContainer.js';
 import Friends from './Friends.js';
 import base from '../config/ReBase';
 import { getRestaurantById } from '../config/api';
@@ -8,23 +8,28 @@ class Home extends Component {
   constructor() {
     super();
     this.state = {
+      allRestaurants: {},
       userPrefs: [],
       selectedFriends: [],
       chosenRestaurants: []
     };
     this.updateSelectedFriends = this.updateSelectedFriends.bind(this);
     this.updateChosenRestaurants = this.updateChosenRestaurants.bind(this);
+    this.updateAllRestaurants = this.updateAllRestaurants.bind(this);
   }
   componentDidMount(){
     base.fetch(`users/${this.props.uid}/foodPrefs`, {
       context: this,
       asArray: true,
       then(userPrefs) {
-        console.log(userPrefs);
+        this.setState({userPrefs});
         userPrefs.forEach(userPref => {
           getRestaurantById(userPref).then(restaurant => {
-            console.log(restaurant);
-            this.setState({userPrefs: [...this.state.userPrefs, restaurant]});
+            let newObject = {};
+            newObject[restaurant.id] = restaurant;
+            console.log(newObject);
+            let allRestaurants = Object.assign(this.state.allRestaurants, newObject);
+            this.setState({allRestaurants});
           });
         });
       }
@@ -45,7 +50,21 @@ class Home extends Component {
     this.setState({selectedFriends});
   }
   updateChosenRestaurants(chosenRestaurants) {
+    console.log(chosenRestaurants);
     this.setState({chosenRestaurants});
+  }
+  updateAllRestaurants(friendChoices) {
+    friendChoices.forEach(friendChoice => {
+      if ( !(friendChoice in this.state.allRestaurants) ) {
+        getRestaurantById(friendChoice).then(restaurant => {
+          let newObject = {};
+          newObject[restaurant.id] = restaurant;
+          let allRestaurants = Object.assign(this.state.allRestaurants, newObject);
+          this.setState({allRestaurants});
+          console.log(allRestaurants);
+        });
+      }
+    })
   }
 
   render () {
@@ -54,11 +73,14 @@ class Home extends Component {
       <div>
 
         <Friends uid={this.props.uid} handleCheck={this.updateSelectedFriends}/>
-        <Choose
+        <ChooseContainer
           selectedFriends={this.state.selectedFriends}
           userPrefs={this.state.userPrefs}
           uid={this.props.uid}
-          handleCheck={this.updateChosenRestaurants}/>
+          chosenRestaurants={this.state.chosenRestaurants}
+          allRestaurants={this.state.allRestaurants}
+          handleCheck={this.updateChosenRestaurants}
+          updateAllRestaurants={this.updateAllRestaurants}/>
       </div>
     )
   }
