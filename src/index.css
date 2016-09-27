@@ -31,3 +31,20 @@ body {
   overflow: hidden;
   overflow-y: auto;
 }
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .mobile {
+    display: block;
+  }
+  .my-choices, .their-choices {
+    display: none;
+  }
+}
+
+.App-logo {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Penrose-dreieck.svg/2000px-Penrose-dreieck.svg.png);
+}

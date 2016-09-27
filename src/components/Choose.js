@@ -1,49 +1,29 @@
-import React, { Component } from 'react';
-import base from '../config/ReBase';
+import React from 'react';
+import Select from './Select';
+import Checkbox from './Checkbox';
 import _ from 'lodash';
+import AngleMade from './AngleMade.js';
 
-class Choose extends Component {
-  constructor() {
-    super();
-    this.state = {};
-    this.syncStateForFriends = this.syncStateForFriends.bind(this);
-  }
-  componentWillReceiveProps(nextProps) {
-    base.reset();
-    this.syncStateForFriends(nextProps);
-  }
-  componentDidMount(){
-    this.syncStateForFriends(this.props);
-  }
-  componentWillUnmount(){
-    base.reset();
-  }
-  syncStateForFriends(props) {
-    props.selectedFriends.forEach(friendId => {
-      if (friendId !== this.props.uid) {
-        this.state[friendId] = [];
-        this.setState(this.state);
-        base.syncState(`users/${friendId}/chosenRestaurants`, {
-          context: this,
-          state: friendId,
-          asArray: true
-        });
-      }
-    })
-  }
-  render () {
-    return (
-      <div style={{border: "3px solid green"}}>
-        <h2>Here is your options! Pick 3:</h2>
-        <ul className="myChoices">
-
-        </ul>
-        <ul className="theirChoices">
-
-        </ul>
+const Choose = props => {
+  let {allRestaurants, userPrefs, chosenRestaurants, handleCheck, friendsChoices, handleChange} = props;
+  let myCheckboxes = userPrefs.map((restaurant, index) => <Checkbox key={index} restaurant={allRestaurants[restaurant]} chosenRestaurants={chosenRestaurants} handleChange={handleChange}/>);
+  let theirCheckboxes = _.valuesIn(friendsChoices).map((friendChoices, index) => (
+    <div className="their-choices" key={index}>
+      <h2>Friend Choices</h2>
+      {friendChoices.map((restaurant, index) => <Checkbox key={index} restaurant={allRestaurants[restaurant]} chosenRestaurants={chosenRestaurants} handleChange={handleChange}/>)}
+    </div>
+  ));
+  return (
+    <div style={{border: "3px solid green"}}>
+      <div className="my-choices">
+        <h2>My Choices</h2>
+        {myCheckboxes}
+        <Select myChoices={userPrefs} chosenRestaurants={chosenRestaurants} handleSelect={handleCheck}/>
       </div>
-    )
-  }
+      {theirCheckboxes}
+      <AngleMade finalDecision={props.chosenRestaurants}/>
+    </div>
+  )
 }
 
 export default Choose;

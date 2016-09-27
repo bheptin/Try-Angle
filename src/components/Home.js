@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Choose from './Choose';
+import ChooseContainer from '../containers/ChooseContainer.js';
 import Friends from './Friends.js';
-import Mood from './Mood';
 import base from '../config/ReBase';
 import { getRestaurantById } from '../config/api';
 
@@ -9,29 +8,37 @@ class Home extends Component {
   constructor() {
     super();
     this.state = {
+      allRestaurants: {},
       userPrefs: [],
       selectedFriends: [],
       chosenRestaurants: []
     };
     this.updateSelectedFriends = this.updateSelectedFriends.bind(this);
     this.updateChosenRestaurants = this.updateChosenRestaurants.bind(this);
+    this.updateAllRestaurants = this.updateAllRestaurants.bind(this);
   }
   componentDidMount(){
     base.fetch(`users/${this.props.uid}/foodPrefs`, {
       context: this,
       asArray: true,
       then(userPrefs) {
+        this.setState({userPrefs});
         userPrefs.forEach(userPref => {
           getRestaurantById(userPref).then(restaurant => {
-            this.setState({userPrefs: [...this.state.userPrefs, restaurant]});
+            let newObject = {};
+            newObject[restaurant.id] = restaurant;
+            console.log(newObject);
+            let allRestaurants = Object.assign(this.state.allRestaurants, newObject);
+            this.setState({allRestaurants});
           });
         });
       }
     })
+
     base.syncState(`users/${this.props.uid}/selectedFriends`, {
       context: this,
-      asArray: true,
-      state: 'selectedFriends'
+      state: 'selectedFriends',
+      asArray: true
     })
     base.syncState(`users/${this.props.uid}/chosenRestaurants`, {
       context: this,
@@ -43,15 +50,37 @@ class Home extends Component {
     this.setState({selectedFriends});
   }
   updateChosenRestaurants(chosenRestaurants) {
+    console.log(chosenRestaurants);
     this.setState({chosenRestaurants});
   }
+  updateAllRestaurants(friendChoices) {
+    friendChoices.forEach(friendChoice => {
+      if ( !(friendChoice in this.state.allRestaurants) ) {
+        getRestaurantById(friendChoice).then(restaurant => {
+          let newObject = {};
+          newObject[restaurant.id] = restaurant;
+          let allRestaurants = Object.assign(this.state.allRestaurants, newObject);
+          this.setState({allRestaurants});
+          console.log(allRestaurants);
+        });
+      }
+    })
+  }
+
   render () {
+
     return (
       <div>
-        <h4>Home</h4>
+
         <Friends uid={this.props.uid} handleCheck={this.updateSelectedFriends}/>
-        <Mood uid={this.props.uid} userPrefs={this.state.userPrefs} handleCheck={this.updateChosenRestaurants}/>
-        <Choose selectedFriends={this.state.selectedFriends} userPrefs={this.state.userPrefs} uid={this.props.uid}/>
+        <ChooseContainer
+          selectedFriends={this.state.selectedFriends}
+          userPrefs={this.state.userPrefs}
+          uid={this.props.uid}
+          chosenRestaurants={this.state.chosenRestaurants}
+          allRestaurants={this.state.allRestaurants}
+          handleCheck={this.updateChosenRestaurants}
+          updateAllRestaurants={this.updateAllRestaurants}/>
       </div>
     )
   }

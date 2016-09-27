@@ -6,10 +6,11 @@ import _ from 'lodash';
 class Friends extends Component {
   constructor (props) {
     super(props)
-      this.state = {
-        users: [],
-        friendsList: []
-      }
+    this.state = {
+      users: [],
+      friendsList: []
+    }
+    this.addSelected = this.addSelected.bind(this);
   }
   componentDidMount(){
     base.fetch(`users`, {
@@ -18,8 +19,8 @@ class Friends extends Component {
       then(users) {
         this.setState({users})
       }
-    })
-    base.syncState(`user/${this.props.uid}/friendsList`, {
+    });
+    base.syncState(`users/${this.props.uid}/friendsList`, {
       context: this,
       asArray: true,
       state: 'friendsList'
