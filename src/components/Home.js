@@ -18,6 +18,7 @@ class Home extends Component {
     this.updateAllRestaurants = this.updateAllRestaurants.bind(this);
   }
   componentDidMount(){
+    this.ref = [];
     base.fetch(`users/${this.props.uid}/foodPrefs`, {
       context: this,
       asArray: true,
@@ -35,16 +36,19 @@ class Home extends Component {
       }
     })
 
-    base.syncState(`users/${this.props.uid}/selectedFriends`, {
+    this.ref.push(base.syncState(`users/${this.props.uid}/selectedFriends`, {
       context: this,
       state: 'selectedFriends',
       asArray: true
-    })
-    base.syncState(`users/${this.props.uid}/chosenRestaurants`, {
+    }));
+    this.ref.push(base.syncState(`users/${this.props.uid}/chosenRestaurants`, {
       context: this,
       state: 'chosenRestaurants',
       asArray: true
-    });
+    }));
+  }
+  componentWillUnmount() {
+    this.ref.forEach(ref => base.removeBinding(ref));
   }
   updateSelectedFriends(selectedFriends) {
     this.setState({selectedFriends});

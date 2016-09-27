@@ -1,35 +1,33 @@
-import React, { Component } from 'react';
+import React, { Component, cloneElement } from 'react';
 import { getRestaurants } from '../config/api';
-import FoodPref from '../components/FoodPref';
-import Profile from '../components/Profile';
+import BasicInfo from '../components/BasicInfo';
 import base from '../config/ReBase';
 
 class ProfileContainer extends Component {
   constructor() {
     super();
-    this.state = {restaurants: []};
-    this.addPrefsAndAllergiesToDB = this.addPrefsAndAllergiesToDB.bind(this);
+    this.state = {
+      restaurants: []
+    };
+    this.handleClick = this.handleClick.bind(this);
   }
-  componentWillMount() {
-    getRestaurants().then(restaurants => this.setState({restaurants}));
-    console.log("ProfileContainer props are :", this.props);
-  }
-  addPrefsAndAllergiesToDB(prefs, allergies) {
-    this.postToFirebase('foodPrefs', prefs);
-    this.postToFirebase('allergies', allergies);
-    this.context.router.push("home");
-  }
-  postToFirebase(endpoint, data) {
-    base.post(`users/${this.props.uid}/${endpoint}`, {data});
+  handleClick() {
+    const routes = ["/profile/basic-info", "/profile/food-prefs", "/profile/allergies", "/home"];
+    let currentRoute = this.props.location.pathname;
+    let nextIndex = routes.indexOf(currentRoute) + 1;
+    this.context.router.push(routes[nextIndex]);
   }
   render() {
-      return (
-        <div>
-          <h1>Profile</h1>
-          <Profile uid={this.props.uid}/>
-          <FoodPref restaurants={this.state.restaurants} addToDB={this.addPrefsAndAllergiesToDB}/>
-        </div>
-      )
+    return (
+      <div>
+        <h1>Profile</h1>
+        {cloneElement(this.props.children, {
+          uid: this.props.uid,
+          allRestaurants: this.props.allRestaurants
+        })}
+        <button onClick={this.handleClick}>Next</button>
+      </div>
+    )
   }
 }
 
