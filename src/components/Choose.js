@@ -20,8 +20,14 @@ const Choose = props => {
         {myCheckboxes}
         <Select myChoices={userPrefs} chosenRestaurants={chosenRestaurants} handleSelect={handleCheck}/>
       </div>
-      {theirCheckboxes}
-      <AngleMade finalDecision={props.chosenRestaurants}/>
+      <div className="their-choices">
+        {theirCheckboxes}
+      </div>
+      <div className="angleMade">
+        <AngleMade allRestaurants={props.allRestaurants}
+          friendsChoices={props.friendsChoices}
+          chosenRestaurants={props.chosenRestaurants}/>
+      </div>
     </div>
   )
 }
