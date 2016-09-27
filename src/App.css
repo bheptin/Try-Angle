@@ -16,3 +16,7 @@
 .App-intro {
   font-size: large;
 }
+.my-choices, .their-choices {
+
+  text-align: left;
+}

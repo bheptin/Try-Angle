@@ -2,6 +2,7 @@ import React from 'react';
 import Select from './Select';
 import Checkbox from './Checkbox';
 import _ from 'lodash';
+import AngleMade from './AngleMade.js';
 
 const Choose = props => {
   let {allRestaurants, userPrefs, chosenRestaurants, handleCheck, friendsChoices, handleChange} = props;
@@ -20,6 +21,7 @@ const Choose = props => {
         <Select myChoices={userPrefs} chosenRestaurants={chosenRestaurants} handleSelect={handleCheck}/>
       </div>
       {theirCheckboxes}
+      <AngleMade finalDecision={props.chosenRestaurants}/>
     </div>
   )
 }

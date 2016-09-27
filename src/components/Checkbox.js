@@ -9,6 +9,7 @@ const Checkbox = props => {
             onChange={props.handleChange.bind(this, props.restaurant.id)}
             checked={checkValue}/>
           {props.restaurant.name}
+          <img src={props.restaurant.image_url} style={{width: "40px", height: "40px"}} alt="..." className="img-thumbnail"/>
         </label>
     )
   } else {
