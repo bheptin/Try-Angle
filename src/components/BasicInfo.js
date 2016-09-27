@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router';
 import base from '../config/ReBase';
 
@@ -32,17 +33,23 @@ class BasicInfo extends Component {
   }
   render () {
     return (
-      <div>
-          <div className="form-group">
-            <label>First Name</label>
-            <input type="text" value={this.state.firstName || ""} placeholder="John" className="form-control" onChange={this.handleChange.bind(this, 'firstName')}/>
-          </div>
-          <div className="form-group">
-            <label>Last Name</label>
-            <input type="text" value={this.state.lastName || ""} placeholder="Doe" className="form-control" onChange={this.handleChange.bind(this, 'lastName')}/>
-          </div>
-          <Link to="/profile/food-prefs" className="tab two">Next</Link>
-      </div>
+      <ReactCSSTransitionGroup
+        transitionName="example"
+        transitionAppear={true}
+        transitionAppearTimeout={500}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}>
+        <div>
+            <div className="form-group">
+              <label>First Name</label>
+              <input type="text" value={this.state.firstName || ""} placeholder="John" className="form-control" onChange={this.handleChange.bind(this, 'firstName')}/>
+            </div>
+            <div className="form-group">
+              <label>Last Name</label>
+              <input type="text" value={this.state.lastName || ""} placeholder="Doe" className="form-control" onChange={this.handleChange.bind(this, 'lastName')}/>
+            </div>
+        </div>
+    </ReactCSSTransitionGroup>
     )
   }
 }

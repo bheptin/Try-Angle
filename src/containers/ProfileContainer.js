@@ -25,7 +25,7 @@ class ProfileContainer extends Component {
           uid: this.props.uid,
           allRestaurants: this.props.allRestaurants
         })}
-        <button onClick={this.handleClick}>Next</button>
+        <button className="btn btn-primary" onClick={this.handleClick}>Next</button>
       </div>
     )
   }

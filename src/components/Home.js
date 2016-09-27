@@ -28,7 +28,6 @@ class Home extends Component {
           getRestaurantById(userPref).then(restaurant => {
             let newObject = {};
             newObject[restaurant.id] = restaurant;
-            console.log(newObject);
             let allRestaurants = Object.assign(this.state.allRestaurants, newObject);
             this.setState({allRestaurants});
           });
@@ -54,7 +53,6 @@ class Home extends Component {
     this.setState({selectedFriends});
   }
   updateChosenRestaurants(chosenRestaurants) {
-    console.log(chosenRestaurants);
     this.setState({chosenRestaurants});
   }
   updateAllRestaurants(friendChoices) {
@@ -65,7 +63,6 @@ class Home extends Component {
           newObject[restaurant.id] = restaurant;
           let allRestaurants = Object.assign(this.state.allRestaurants, newObject);
           this.setState({allRestaurants});
-          console.log(allRestaurants);
         });
       }
     })

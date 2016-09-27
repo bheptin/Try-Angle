@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import base from '../config/ReBase';
 import _ from 'lodash';
 
@@ -33,10 +34,17 @@ class Allergy extends Component {
       </label>
     ));
     return (
-      <div>
-        <h2>Allergies</h2>
-          {checkBoxes}
-      </div>
+      <ReactCSSTransitionGroup
+        transitionName="example"
+        transitionAppear={true}
+        transitionAppearTimeout={500}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}>
+        <div>
+          <h2>Allergies</h2>
+            {checkBoxes}
+        </div>
+      </ReactCSSTransitionGroup>
     )
   }
 }
