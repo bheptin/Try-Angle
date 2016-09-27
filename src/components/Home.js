@@ -4,6 +4,7 @@ import Friends from './Friends.js';
 import base from '../config/ReBase';
 import { getRestaurantById } from '../config/api';
 
+
 class Home extends Component {
   constructor() {
     super();
@@ -81,6 +82,7 @@ class Home extends Component {
           allRestaurants={this.state.allRestaurants}
           handleCheck={this.updateChosenRestaurants}
           updateAllRestaurants={this.updateAllRestaurants}/>
+
       </div>
     )
   }
