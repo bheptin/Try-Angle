@@ -1,6 +1,7 @@
 import React, { Component, cloneElement } from 'react';
 import { Link } from 'react-router';
 import { getRestaurants } from '../config/api';
+import base from '../config/ReBase';
 import '../App.css';
 
 class App extends Component {
@@ -37,7 +38,7 @@ class App extends Component {
 
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav">
-                <li className="active"><a href="home">Home <span className="sr-only">(current)</span></a></li>
+                <li className="active"><Link to="/home">Home<span className="sr-only">(current)</span></Link></li>
                 <li><Link to="/profile">Profile</Link></li>
               </ul>
               <form className="navbar-form navbar-left">
