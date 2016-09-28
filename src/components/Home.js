@@ -12,46 +12,54 @@ class Home extends Component {
       allRestaurants: {},
       userPrefs: [],
       selectedFriends: [],
-      chosenRestaurants: []
+      chosenRestaurants: [],
+      uid: null
     };
     this.updateSelectedFriends = this.updateSelectedFriends.bind(this);
     this.updateChosenRestaurants = this.updateChosenRestaurants.bind(this);
     this.updateAllRestaurants = this.updateAllRestaurants.bind(this);
   }
   componentDidMount(){
-    base.fetch(`users/${this.props.uid}/foodPrefs`, {
-      context: this,
-      asArray: true,
-      then(userPrefs) {
-        this.setState({userPrefs});
-        userPrefs.forEach(userPref => {
-          getRestaurantById(userPref).then(restaurant => {
-            let newObject = {};
-            newObject[restaurant.id] = restaurant;
-            console.log(newObject);
-            let allRestaurants = Object.assign(this.state.allRestaurants, newObject);
-            this.setState({allRestaurants});
-          });
-        });
-      }
-    })
+    base.auth().onAuthStateChanged(user => {
+      this.setState({uid: user.uid});
+      if (user) {
+        this.ref = [];
+        base.fetch(`users/${user.uid}/foodPrefs`, {
+          context: this,
+          asArray: true,
+          then(userPrefs) {
+            this.setState({userPrefs});
+            userPrefs.forEach(userPref => {
+              getRestaurantById(userPref).then(restaurant => {
+                let newObject = {};
+                newObject[restaurant.id] = restaurant;
+                let allRestaurants = Object.assign(this.state.allRestaurants, newObject);
+                this.setState({allRestaurants});
+              });
+            });
+          }
+        })
 
-    base.syncState(`users/${this.props.uid}/selectedFriends`, {
-      context: this,
-      state: 'selectedFriends',
-      asArray: true
-    })
-    base.syncState(`users/${this.props.uid}/chosenRestaurants`, {
-      context: this,
-      state: 'chosenRestaurants',
-      asArray: true
+        this.ref.push(base.syncState(`users/${user.uid}/selectedFriends`, {
+          context: this,
+          state: 'selectedFriends',
+          asArray: true
+        }));
+        this.ref.push(base.syncState(`users/${user.uid}/chosenRestaurants`, {
+          context: this,
+          state: 'chosenRestaurants',
+          asArray: true
+        }));
+      }
     });
+  }
+  componentWillUnmount() {
+    this.ref.forEach(ref => base.removeBinding(ref));
   }
   updateSelectedFriends(selectedFriends) {
     this.setState({selectedFriends});
   }
   updateChosenRestaurants(chosenRestaurants) {
-    console.log(chosenRestaurants);
     this.setState({chosenRestaurants});
   }
   updateAllRestaurants(friendChoices) {
@@ -62,7 +70,6 @@ class Home extends Component {
           newObject[restaurant.id] = restaurant;
           let allRestaurants = Object.assign(this.state.allRestaurants, newObject);
           this.setState({allRestaurants});
-          console.log(allRestaurants);
         });
       }
     })
