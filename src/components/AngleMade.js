@@ -1,35 +1,42 @@
 import React, { Component } from 'react';
+import base from '../config/ReBase';
 import _ from 'lodash';
 
 class AngleMade extends Component {
     constructor (props) {
       super(props);
-      this.state = {button: false, lucky: false}
+      this.state = {venue: null}
     }
-
-    eventHandler (Kevin) {
-        console.log(Kevin);
-        if (Kevin === "finalDecision") {
-          this.setState({lucky: false})
-        } else {
-          this.setState({lucky: true})
+    componentWillMount() {
+      base.fetch(`parties/${this.props.partyId}/selections`, {
+        context: this,
+        asArray: true,
+        then(choices) {
+          let commonChoices = _.intersection(...choices);
+          let combinedChoices = _.uniq(_.flatten(choices));
+          let randomChoice = _.shuffle(commonChoices || combinedChoices)[0];
+          console.log("Combined choices are ", combinedChoices);
+          console.log("Common choices are ", commonChoices);
+          base.fetch(`parties/${this.props.partyId}/venue`, {
+            context: this,
+            then(venue) {
+              if (venue) {
+                this.setState({venue: this.props.allRestaurants.filter(restaurant => restaurant.id === venue)[0]});
+              } else {
+                base.post(`parties/${this.props.partyId}/venue`, {
+                  data: randomChoice
+                })
+                this.setState({venue: this.props.allRestaurants.filter(restaurant => restaurant.id === randomChoice)[0]});
+              }
+            }
+          })
         }
+      })
     }
-
     render () {
-      let finalDecision = _.shuffle(this.props.chosenRestaurants)[0];
-      let lucky = _.valuesIn(this.props.friendsChoices);
-      lucky = _.flatten(lucky);
-      console.log(lucky);
-      lucky = _.shuffle(lucky)[0];
-
       return(
         <div className="angleMade">
-          <button ref="angle" onClick={this.eventHandler.bind(this,"finalDecision")} type="button" className="btn btn-primary">Create Angle</button>
-          <button ref="lucky" onClick={this.eventHandler.bind(this,"lucky")} type="button" className="btn btn-info">Feeling Lucky</button>
-            <h2>Angle Made</h2>
-            <h2>{!this.state.lucky ? finalDecision : lucky }
-                </h2>
+          <h1>{this.state.venue ? this.state.venue.name : ""}</h1>
         </div>
 
       )
