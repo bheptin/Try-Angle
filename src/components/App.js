@@ -1,16 +1,22 @@
 import React, { Component, cloneElement } from 'react';
+import { Link } from 'react-router';
+import { getRestaurants } from '../config/api';
+import base from '../config/ReBase';
 import '../App.css';
 
 class App extends Component {
   constructor() {
     super();
-    this.state = {user: {}};
+    this.state = {user: {}, allRestaurants: []};
     this.addUserToState = this.addUserToState.bind(this);
   }
   addUserToState(user, path) {
     this.setState({user});
     console.log("user id is ", this.state.user.uid);
     this.context.router.push(`/${path}`);
+  }
+  componentDidMount() {
+    getRestaurants().then(allRestaurants => this.setState({allRestaurants}));
   }
   render() {
     return (
@@ -32,8 +38,8 @@ class App extends Component {
 
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav">
-                <li className="active"><a href="home">Home <span className="sr-only">(current)</span></a></li>
-                <li><a href="profile">Profile</a></li>
+                <li className="active"><Link to="/home">Home<span className="sr-only">(current)</span></Link></li>
+                <li><Link to="/profile">Profile</Link></li>
               </ul>
               <form className="navbar-form navbar-left">
                 <div className="form-group">
@@ -47,7 +53,8 @@ class App extends Component {
         </div>
         {cloneElement(this.props.children, {
           addUserToState: this.addUserToState,
-          uid: this.state.user.uid
+          uid: this.state.user.uid,
+          allRestaurants: this.state.allRestaurants
         })}
       </div>
     );
