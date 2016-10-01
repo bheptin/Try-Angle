@@ -7,16 +7,25 @@ import '../App.css';
 class App extends Component {
   constructor() {
     super();
-    this.state = {user: {}, allRestaurants: []};
-    this.addUserToState = this.addUserToState.bind(this);
-  }
-  addUserToState(user, path) {
-    this.setState({user});
-    console.log("user id is ", this.state.user.uid);
-    this.context.router.push(`/${path}`);
+    this.state = {
+      allRestaurants: [],
+      partyId: null,
+      users: []
+    };
+    this.addPartyId = this.addPartyId.bind(this);
   }
   componentDidMount() {
     getRestaurants().then(allRestaurants => this.setState({allRestaurants}));
+    base.fetch(`users`, {
+      context: this,
+      asArray: true,
+      then(users) {
+        this.setState({users})
+      }
+    });
+  }
+  addPartyId(partyId) {
+    this.setState({partyId});
   }
   render() {
     return (
@@ -52,17 +61,14 @@ class App extends Component {
         </nav>
         </div>
         {cloneElement(this.props.children, {
-          addUserToState: this.addUserToState,
-          uid: this.state.user.uid,
-          allRestaurants: this.state.allRestaurants
+          allRestaurants: this.state.allRestaurants,
+          partyId: this.state.partyId,
+          addPartyId: this.addPartyId,
+          users: this.state.users
         })}
       </div>
     );
   }
-}
-
-App.contextTypes = {
-  router: React.PropTypes.object.isRequired
 }
 
 export default App;

@@ -17,7 +17,7 @@ class Signup extends Component {
     if (error) {
       console.log(error);
     } else {
-      this.props.addUserToState(userData, "profile");
+      this.context.router.push("profile");
     }
   }
   render () {
@@ -36,6 +36,10 @@ class Signup extends Component {
       </form>
     )
   }
+}
+
+Signup.contextTypes = {
+  router: React.PropTypes.object.isRequired
 }
 
 export default Signup;
