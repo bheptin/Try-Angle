@@ -3,6 +3,8 @@ import ChooseContainer from '../containers/ChooseContainer.js';
 import Friends from './Friends.js';
 import base from '../config/ReBase';
 import { getRestaurantById } from '../config/api';
+import Decision from './Decision.js';
+
 
 
 class Home extends Component {
@@ -15,6 +17,7 @@ class Home extends Component {
       chosenRestaurants: [],
       uid: null
     };
+    this.handleClick = this.handleClick.bind(this);
     this.updateSelectedFriends = this.updateSelectedFriends.bind(this);
     this.updateChosenRestaurants = this.updateChosenRestaurants.bind(this);
     this.updateAllRestaurants = this.updateAllRestaurants.bind(this);
@@ -74,12 +77,15 @@ class Home extends Component {
       }
     })
   }
+  handleClick() {
+    this.context.router.push("decision");
+  }
 
   render () {
 
     return (
       <div>
-
+        <button onClick={this.handleClick}>buh-Ton</button>
         <Friends uid={this.props.uid} handleCheck={this.updateSelectedFriends}/>
         <ChooseContainer
           selectedFriends={this.state.selectedFriends}
@@ -94,5 +100,5 @@ class Home extends Component {
     )
   }
 }
-
+Home.contextTypes = {router: React.PropTypes.object.isRequired};
 export default Home;

@@ -25,20 +25,24 @@ class Login extends Component {
 
   render () {
     return (
-      <div className="center-block" style={{width: "30%"}}>
+        <div>
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group" className="center-block">
+          <div className="signup" style={{float: "right", width: "300px", height: "300px", marginRight: "200px", textAlign: "center"}}>
+            <p>Have you ever experienced this?</p>
+            <img style={{width: "300px", height: "300px", textAlign: "center"}} src="https://cdn.meme.am/instances/500x/59857655.jpg"/>
+            <p> With Try-Angle, take the guesswork of where to eat out! Pair with one or more frineds to make eating out an easy fix!</p>
+            <Link to="signup"><button className="btn btn-secondary">Sign Up!</button></Link>
+          </div>
+
+          <div className="form-group" style={{float: "left", marginLeft: "30px"}}>
             <label>Email address</label>
             <input type="email" ref="email" className="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter email"/>
-            <small id="emailHelp" className="form-text text-muted">We never share your email with anyone else.</small>
-          </div>
-          <div className="form-group" className="center-block">
             <label>Password</label>
             <input type="password" ref="password" className="form-control" id="exampleInputPassword" placeholder="Password"/>
+            <button style={{marginTop: "10px"}}type="submit" className="btn btn-primary">Log in</button>
           </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
         </form>
-        <Link to="signup"><button className="btn btn-secondary">Sign Up!</button></Link>
+
       </div>
     )
   }

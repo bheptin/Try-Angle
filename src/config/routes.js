@@ -8,6 +8,7 @@ import ProfileContainer from "../containers/ProfileContainer";
 import BasicInfo from "../components/BasicInfo";
 import FoodPrefs from "../components/FoodPrefs";
 import Allergies from "../components/Allergies";
+import Decision from "../components/Decision";
 
 const routes = (
   <Router history={browserHistory}>
@@ -16,6 +17,7 @@ const routes = (
       <Route path="login" component={Login} />
       <Route path="signup" component={Signup} />
       <Route path="home" component={Home}/>
+      <Route path="decision" component={Decision}/>
       <Route path="profile" component={ProfileContainer}>
         <IndexRedirect to="basic-info" />
         <Route path="basic-info" component={BasicInfo}/>
