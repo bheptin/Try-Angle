@@ -13,8 +13,8 @@ body {
 }
 .Friends h3{
   text-align: left;
-  margin-left: 80px;
-  width: 200px;
+  margin-left: 40px;
+  width: 300px;
   color: #6798cd;
 }
 .Friends h4 {
@@ -22,16 +22,19 @@ body {
   width: 60%;
 }
 .Friends ul {
+  background-color: #C5DBF5;
   display: flex;
   flex-direction: column;
   color: #6798cd;
   border-style: solid;
+  border-radius: 10px;
   border-color: #2A619E;
   font-family: monospace;
   font-weight: 700;
   font-size: 20px;
   padding: 0px;
-  width: 50%;
+  margin-top: 20px;
+  width: 40%;
   height: 200px;
   overflow: hidden;
   overflow-y: auto;

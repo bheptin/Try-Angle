@@ -13,6 +13,7 @@ import WaitingRoom from '../components/WaitingRoom';
 import AngleMade from '../components/AngleMade';
 import Invitation from '../components/Invitation';
 
+
 const routes = (
   <Router history={browserHistory}>
     <Route path="/" component={App}>
