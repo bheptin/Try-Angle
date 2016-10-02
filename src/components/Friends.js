@@ -38,11 +38,14 @@ class Friends extends Component {
     ));
     return(
       <div className="Friends">
-        <h3>Who do you want to eat with?</h3>
+        <h3>Who you like to enjoy a meal with?</h3>
+        <img style={{width: "300px", height: "250px", float: "right", marginRight: "100px"}} src="http://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/new_years_healthy_eating_slideshow/getty_rm_photo_of_friends_eating_appetizers.jpg"  className="img-circle"/>
+
         <ul style={{listStyleType: "none"}}>
           {friendsList}
         </ul>
-        <button onClick={this.handleClick}>Next</button>
+
+        <button style={{marginLeft: "140px"}} onClick={this.handleClick} type="button" className="btn btn-primary btn-sm">Next</button>
       </div>
     )
   }

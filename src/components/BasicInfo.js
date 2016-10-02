@@ -8,13 +8,14 @@ class BasicInfo extends Component {
     super();
     this.state = {
       firstName: "",
-      lastName: ""
+      lastName: "",
+      zipCode: ""
     };
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     this.ref = [];
-    const endpoints = ['firstName', 'lastName'];
+    const endpoints = ['firstName', 'lastName', 'zipCode'];
     endpoints.forEach(endpoint => {
       base.fetch(`users/${base.auth().currentUser.uid}/personalInfo/${endpoint}`, {
         context: this,
@@ -47,6 +48,10 @@ class BasicInfo extends Component {
             <div className="form-group">
               <label>Last Name</label>
               <input type="text" value={this.state.lastName || ""} placeholder="Doe" className="form-control" onChange={this.handleChange.bind(this, 'lastName')}/>
+            </div>
+            <div className="form-group">
+              <label>Zip Code</label>
+              <input type="text" value={this.state.zipCode || ""} placeholder="Zip Code" className="form-control" onChange={this.handleChange.bind(this, 'zipCode')}/>
             </div>
         </div>
       </ReactCSSTransitionGroup>
