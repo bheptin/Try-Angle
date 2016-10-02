@@ -12,8 +12,23 @@ class Login extends Component {
     if (error) {
       console.log(error)
     } else {
-      console.log(userData);
-      this.props.addUserToState(userData, "home");
+      base.fetch(`users/${userData.uid}/partyId`, {
+        context: this,
+        then(partyId){
+          if (partyId) {
+            this.props.addPartyId(partyId);
+            base.fetch(`parties/${partyId}`, {
+              context: this,
+              then(party) {
+                console.log(party);
+                this.context.router.push( (userData.uid in party.selections) ? "waiting-room" : "invitation" );
+              }
+            })
+          } else {
+            this.context.router.push("choose-friends");
+          }
+        }
+      });
     }
   }
   handleSubmit (event) {
@@ -46,6 +61,10 @@ class Login extends Component {
       </div>
     )
   }
+}
+
+Login.contextTypes = {
+  router: React.PropTypes.object.isRequired
 }
 
 export default Login;

@@ -17,20 +17,31 @@ body {
   width: 200px;
   color: #6798cd;
 }
+.Friends h4 {
+  display: inline-block;
+  width: 60%;
+}
 .Friends ul {
+  display: flex;
+  flex-direction: column;
   color: #6798cd;
   border-style: solid;
   border-color: #2A619E;
-  text-align: right;
   font-family: monospace;
   font-weight: 700;
   font-size: 20px;
   padding: 0px;
-  width: 310px;
-  height: 100px;
+  width: 50%;
+  height: 200px;
   overflow: hidden;
   overflow-y: auto;
 }
+
+/*.Friends div  {
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+}*/
 
 .mobile {
   display: none;
@@ -43,15 +54,6 @@ body {
 .example-appear.example-appear-active {
   opacity: 1;
   transition: opacity .5s ease-in;
-}
-
-@media (max-width: 600px) {
-  .mobile {
-    display: block;
-  }
-  .my-choices, .their-choices {
-    display: none;
-  }
 }
 
 .App-logo {

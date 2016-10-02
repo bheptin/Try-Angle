@@ -38,7 +38,7 @@ class FoodPrefs extends Component {
         transitionEnterTimeout={500}
         transitionLeaveTimeout={300}>
         <div>
-          <h2>Food Preferences</h2>
+          <p>See any of your favorites? Let us know so we can craft your perfect dining experience!</p>
           {checkBoxes}
         </div>
       </ReactCSSTransitionGroup>

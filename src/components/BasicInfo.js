@@ -17,20 +17,20 @@ class BasicInfo extends Component {
     this.ref = [];
     const endpoints = ['firstName', 'lastName', 'zipCode'];
     endpoints.forEach(endpoint => {
-      this.ref.push(base.syncState(`users/${this.props.uid}/personalInfo/${endpoint}`, {
+      base.fetch(`users/${base.auth().currentUser.uid}/personalInfo/${endpoint}`, {
         context: this,
-        state: endpoint
-      }))
+        then(name) {
+          this.setState({[endpoint]: name});
+        }
+      })
     })
   }
-  componentWillUnmount() {
-    this.ref.forEach(ref => base.removeBinding(ref));
-  }
   handleChange(key, event) {
-    let newObj = {};
-    newObj[key] = event.target.value;
-    let newState = Object.assign(this.state, newObj);
-    this.setState(newState);
+    let newName = {[key]: event.target.value};
+    base.post(`users/${base.auth().currentUser.uid}/personalInfo/${key}`, {
+      data: event.target.value
+    })
+    this.setState(newName);
   }
   render () {
     return (
@@ -54,7 +54,7 @@ class BasicInfo extends Component {
               <input type="text" value={this.state.zipCode || ""} placeholder="Zip Code" className="form-control" onChange={this.handleChange.bind(this, 'zipCode')}/>
             </div>
         </div>
-    </ReactCSSTransitionGroup>
+      </ReactCSSTransitionGroup>
     )
   }
 }

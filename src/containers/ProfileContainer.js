@@ -12,7 +12,7 @@ class ProfileContainer extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
-    const routes = ["/profile/basic-info", "/profile/food-prefs", "/profile/allergies", "/home"];
+    const routes = ["/profile/basic-info", "/profile/food-prefs", "/profile/allergies", "/choose-friends"];
     let currentRoute = this.props.location.pathname;
     let nextIndex = routes.indexOf(currentRoute) + 1;
     this.context.router.push(routes[nextIndex]);
