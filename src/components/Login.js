@@ -15,8 +15,18 @@ class Login extends Component {
       base.fetch(`users/${userData.uid}/partyId`, {
         context: this,
         then(partyId){
-          this.props.addPartyId(partyId);
-          this.context.router.push(partyId ? "choose-restaurants" : "choose-friends");
+          if (partyId) {
+            this.props.addPartyId(partyId);
+            base.fetch(`parties/${partyId}`, {
+              context: this,
+              then(party) {
+                console.log(party);
+                this.context.router.push( (userData.uid in party.selections) ? "waiting-room" : "invitation" );
+              }
+            })
+          } else {
+            this.context.router.push("choose-friends");
+          }
         }
       });
     }

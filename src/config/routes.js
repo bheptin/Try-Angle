@@ -11,6 +11,7 @@ import Friends from '../components/Friends';
 import Choose from '../components/Choose';
 import WaitingRoom from '../components/WaitingRoom';
 import AngleMade from '../components/AngleMade';
+import Invitation from '../components/Invitation';
 
 const routes = (
   <Router history={browserHistory}>
@@ -18,6 +19,7 @@ const routes = (
       <IndexRedirect to="login" />
       <Route path="login" component={Login} />
       <Route path="signup" component={Signup} />
+      <Route path="invitation" component={Invitation} />
       <Route path="choose-friends" component={Friends}/>
       <Route path="choose-restaurants" component={Choose}/>
       <Route path="waiting-room" component={WaitingRoom}/>

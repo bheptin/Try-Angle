@@ -7,7 +7,7 @@ class WaitingRoom extends Component {
     super();
     this.state = { readyToGo: {} };
   }
-  componentDidMount() {
+  componentWillMount() {
     this.ref = base.listenTo(`parties/${this.props.partyId}/readyToGo`, {
       context: this,
       then(readyToGo) {
@@ -23,8 +23,8 @@ class WaitingRoom extends Component {
   }
   render() {
     let boxes = this.props.users.filter( user => _.keysIn(this.state.readyToGo).includes(user.key) )
-      .map(user => (
-        <div style={{ border: this.state.readyToGo[user.key] ? "3px solid green" : "3px solid red" }}>
+      .map((user, index) => (
+        <div key={index} style={{ border: this.state.readyToGo[user.key] ? "3px solid green" : "3px solid red" }}>
           <p>{user.personalInfo.firstName} is {this.state.readyToGo[user.key] ? "" : "not"} ready to go</p>
         </div>
       ))

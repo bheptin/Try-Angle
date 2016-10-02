@@ -7,7 +7,8 @@ function getRestaurants(categories = "restaurants") {
   let data = {
     "search": {
       "location": 32801,
-      "categories": categories
+      "categories": categories,
+      "limit": 40
     }
   };
   return axios({method: 'post', url, headers, data}).then(response => response.data.businesses);
