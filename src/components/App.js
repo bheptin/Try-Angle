@@ -35,7 +35,8 @@ class App extends Component {
           <nav className="navbar navbar-default">
             <div className="container-fluid">
               <div className="navbar-header">
-                <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
+                  data-target="#navbar" aria-expanded="false">
                   <span className="sr-only">Toggle navigation</span>
                   <span className="icon-bar"></span>
                   <span className="icon-bar"></span>
@@ -45,7 +46,7 @@ class App extends Component {
               </div>
 
 
-            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div className="collapse navbar-collapse" id="navbar">
               <ul className="nav navbar-nav">
                 <li className="active"><Link to="/home">Home<span className="sr-only">(current)</span></Link></li>
                 <li><Link to="/profile">Profile</Link></li>
