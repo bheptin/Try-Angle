@@ -2,7 +2,6 @@
   text-align: center;
 }
 
-
 .App-header {
   background-color: #2944D2;
   height: 70px;
@@ -17,9 +16,9 @@
 
   text-align: left;
 }
-#Head a {
+#Head p {
   float:left;
-  width: 220px;
+  width: 0px;
   margin-top: 0px;
   text-align: center;
   color: #FFFFFF;

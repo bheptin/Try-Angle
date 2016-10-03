@@ -37,7 +37,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <div className="animated bounce" id="Head"><a>tryAngle</a></div>
+          <div className="animated bounce" id="Head"><p>tryAngle</p></div>
           <div style={this.state.navIsVisible ? {display: "block"} : {display: "none"}}>
             <Link style={{float: "right", margin: "8px", color: "#DADBEC"}} to="/profile">Profile</Link>
             <Link to="/login" style={{float: "right", margin: "8px", color: "#DADBEC"}}>Sign Out<span className="sr-only">(current)</span></Link>
