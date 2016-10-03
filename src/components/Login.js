@@ -54,10 +54,10 @@ class Login extends Component {
             </div>
           </form>
           <div className="signup" style={{float: "right", width: "300px", height: "300px", marginRight: "200px", textAlign: "center"}}>
-            <p>Have you ever experienced this?</p>
-            <img style={{width: "300px", height: "300px", textAlign: "center"}} src="https://cdn.meme.am/instances/500x/59857655.jpg"/>
-            <p> With Try-Angle, take the guesswork of where to eat out! Pair with one or more frineds to make eating out an easy fix!</p>
-            <Link to="signup"><button>Sign Up!</button></Link>
+            <p style={{fontSize: "20px", color: "#6798cd"}}>Have you ever experienced this?</p>
+            <img style={{width: "200px", height: "200px", textAlign: "center"}} src="https://cdn.meme.am/instances/500x/59857655.jpg"/>
+            <p style={{fontSize: "10px", color: "#6798cd"}}> With Try-Angle, take the guesswork of where to eat out! Pair with one or more frineds to make eating out an easy fix!</p>
+            <Link to="signup"><button type="button" className="btn btn-primary btn-sm">Sign UP!</button></Link>
           </div>
       </div>
     )

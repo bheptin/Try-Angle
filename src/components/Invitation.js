@@ -30,8 +30,8 @@ class Invitation extends Component {
     let friends = this.props.users.filter(user => this.state.invitees.includes(user.key) && user.key !== base.auth().currentUser.uid);
     friends = friends.map(friend => `${friend.personalInfo.firstName} ${friend.personalInfo.lastName}`).join(", ");
     return (
-      <div>
-        <h2>You've been invited to dine with {friends}</h2>
+      <div className="invite">
+        <h2>Youve been invited to dine with {friends}</h2>
         <h2>Do you accept this invitation?</h2>
         <button onClick={this.handleClick.bind(this, true)}>Yes</button>
         <button onClick={this.handleClick.bind(this, false)}>No</button>
