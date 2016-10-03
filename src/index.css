@@ -68,3 +68,15 @@ body {
     display: inline-block;
   }
 }
+
+.invite h2 {
+  font-family: fantasy;
+  color: #6798cd;
+}
+
+.RestaurantList {
+  display: flex;
+  width: 800px;
+  margin: none;
+
+}
