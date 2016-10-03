@@ -19,7 +19,6 @@ const routes = (
     <Route path="/" component={App}>
       <IndexRedirect to="login" />
       <Route path="login" component={Login} />
-      <Route path="signup" component={Signup} />
       <Route path="invitation" component={Invitation} />
       <Route path="choose-friends" component={Friends}/>
       <Route path="choose-restaurants" component={Choose}/>
