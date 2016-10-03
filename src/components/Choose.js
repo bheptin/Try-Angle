@@ -38,8 +38,8 @@ class Choose extends Component {
   }
   render() {
     let { allRestaurants } = this.props;
-    console.log(this.state.restaurants);
-    let checkboxes = this.state.restaurants.map((restaurant, index) => (
+    console.log(allRestaurants);
+    let checkboxes = allRestaurants.map((restaurant, index) => (
       <label className="RestaurantList" key={index}>
       <img src={restaurant.image_url} style={{width: "100px", height: "100px"}} alt="..." className="img-thumbnail"/>
         <div style={{margin: "0px"}}>
