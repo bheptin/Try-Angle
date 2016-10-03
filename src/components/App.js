@@ -31,7 +31,10 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <div className="animated bounce" id="Head"><Link to="login">Try-Angle</Link></div>
+          <div className="animated bounce" id="Head"><a>tryAngle</a></div>
+          <input type="text" className="form-control" style={{width: "25%", float: "right"}} placeholder="Search"/>
+          <Link style={{float: "right", margin: "8px", color: "#DADBEC"}} to="/profile">Profile</Link>
+          <Link to="/home" style={{float: "right", margin: "8px", color: "#DADBEC"}}>Home<span className="sr-only">(current)</span></Link>
         </div>
         {cloneElement(this.props.children, {
           allRestaurants: this.state.allRestaurants,

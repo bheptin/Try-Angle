@@ -6,10 +6,8 @@
 
 
 .App-header {
-  background-image:
-  radial-gradient( farthest-side, #DADBEC,#555794);
-  background-image: linear-gradient( #555794, white );
-  height: 150px;
+  background-color: #2944D2;
+  height: 70px;
   padding: 20px;
   color: white;
 }
@@ -24,12 +22,20 @@
 #Head a {
   float:left;
   width: 220px;
-  margin-top: 50px;
+  margin-top: 0px;
   text-align: center;
-  font-family: Copperplate Gothic Light;
+  color: #FFFFFF;
+   text-shadow: 1px 1px 2px black, 0 0 25px #15D1BD, 0 0 5px #009787;
+  font-family: papyrus;
   font-weight: lighter;
   font-size: 50px;
 
+}
+.form-group {
+  float: left;
+  margin-top: 20px;
+  padding-top: 25px;
+  width: 300px;
 }
 .container-fluid {
   background-color: #8788BA;

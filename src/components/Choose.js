@@ -58,7 +58,7 @@ class Choose extends Component {
       return {value: restaurant.id, label: restaurant.name}
     });
     return (
-      <div style={{border: "3px solid green"}}>
+      <div className="Choices">
         <MediaQuery query='(min-width: 701px)'>
           <h2>What do you want to eat?</h2>
           {checkboxes}
