@@ -2,7 +2,6 @@ import React from "react";
 import { Router, Route, browserHistory, IndexRedirect } from "react-router";
 import App from "../components/App";
 import Login from "../components/Login";
-import Signup from "../components/Signup";
 import ProfileContainer from "../containers/ProfileContainer";
 import BasicInfo from "../components/BasicInfo";
 import FoodPrefs from "../components/FoodPrefs";
@@ -19,7 +18,6 @@ const routes = (
     <Route path="/" component={App}>
       <IndexRedirect to="login" />
       <Route path="login" component={Login} />
-      <Route path="signup" component={Signup} />
       <Route path="invitation" component={Invitation} />
       <Route path="choose-friends" component={Friends}/>
       <Route path="choose-restaurants" component={Choose}/>

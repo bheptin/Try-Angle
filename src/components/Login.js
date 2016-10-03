@@ -46,6 +46,7 @@ class Login extends Component {
   }
   handleSubmit (existingUser, event) {
     event.preventDefault();
+    this.props.showNav();
     let email = event.target.elements[0].value;
     let password = event.target.elements[1].value;
     if (existingUser) {
