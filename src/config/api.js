@@ -2,12 +2,12 @@ import axios from 'axios';
 
 const headers = {'Authorization': 'Token token=supadupasecret'};
 
-function getRestaurants(categories = "restaurants") {
+function getRestaurants() {
   let url = "https://fathomless-woodland-51903.herokuapp.com/search";
   let data = {
     "search": {
       "location": 32801,
-      "categories": categories,
+      "categories": "restaurants",
       "limit": 40
     }
   };
