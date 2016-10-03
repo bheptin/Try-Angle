@@ -28,6 +28,7 @@ class App extends Component {
   }
   addPartyId(partyId) {
     this.setState({partyId});
+    localStorage.setItem('partyId', partyId);
   }
   showNav() {
     this.setState({navIsVisible: true});
@@ -38,9 +39,8 @@ class App extends Component {
         <div className="App-header">
           <div className="animated bounce" id="Head"><a>tryAngle</a></div>
           <div style={this.state.navIsVisible ? {display: "block"} : {display: "none"}}>
-            <input type="text" className="form-control" style={{width: "25%", float: "right"}} placeholder="Search"/>
             <Link style={{float: "right", margin: "8px", color: "#DADBEC"}} to="/profile">Profile</Link>
-            <Link to="/home" style={{float: "right", margin: "8px", color: "#DADBEC"}}>Home<span className="sr-only">(current)</span></Link>
+            <Link to="/login" style={{float: "right", margin: "8px", color: "#DADBEC"}}>Sign Out<span className="sr-only">(current)</span></Link>
           </div>
         </div>
         {cloneElement(this.props.children, {

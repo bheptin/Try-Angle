@@ -59,6 +59,11 @@ body {
   transition: opacity .5s ease-in;
 }
 
+.login-form {
+  margin-top: 50px;
+  display: flex;
+}
+
 .App-logo {
   background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Penrose-dreieck.svg/2000px-Penrose-dreieck.svg.png);
 }

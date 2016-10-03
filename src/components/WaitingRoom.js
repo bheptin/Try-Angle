@@ -8,7 +8,9 @@ class WaitingRoom extends Component {
     this.state = { readyToGo: {} };
   }
   componentWillMount() {
-    this.ref = base.listenTo(`parties/${this.props.partyId}/readyToGo`, {
+    let { partyId } = this.props;
+    partyId = partyId || localStorage.partyId;
+    this.ref = base.listenTo(`parties/${partyId}/readyToGo`, {
       context: this,
       then(readyToGo) {
         this.setState({readyToGo});
