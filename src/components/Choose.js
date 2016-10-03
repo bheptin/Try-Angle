@@ -18,7 +18,7 @@ class Choose extends Component {
     this.setState({restaurants: this.props.allRestaurants});
   }
   handleClick() {
-    let selectedRestaurants = this.state.value.map(restaurant => restaurant.id);
+    let selectedRestaurants = this.state.value.map(restaurant => restaurant.value);
     base.post(`parties/${this.props.partyId}/selections/${base.auth().currentUser.uid}`, {
       data: selectedRestaurants
     });

@@ -62,3 +62,9 @@ body {
 .App-logo {
   background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Penrose-dreieck.svg/2000px-Penrose-dreieck.svg.png);
 }
+
+@media (max-width: 992px) {
+  .form-group {
+    display: inline-block;
+  }
+}
