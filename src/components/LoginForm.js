@@ -22,7 +22,7 @@ class LoginForm extends Component {
           <h1 className="title">Login</h1>
           <form onSubmit={this.props.handleSubmit.bind(this, true)}>
             <div className="input-container">
-              <input type="text" id="Email" required="required"/>
+              <input type="text" id="Email" required="required" autoComplete="off"/>
               <label htmlFor="Email">Email</label>
               <div className="bar"></div>
             </div>
@@ -34,7 +34,6 @@ class LoginForm extends Component {
             <div className="button-container">
               <button><span>Go</span></button>
             </div>
-            <div className="footer"><a href="#">Forgot your password?</a></div>
           </form>
         </div>
         <div className="card alt">
@@ -46,7 +45,7 @@ class LoginForm extends Component {
           </h1>
           <form onSubmit={this.props.handleSubmit.bind(this, false)}>
             <div className="input-container">
-              <input type="text" id="Email" required="required"/>
+              <input type="text" id="Email" required="required" autoComplete="off"/>
               <label htmlFor="Email">Email</label>
               <div className="bar"></div>
             </div>

@@ -14,9 +14,6 @@ class Choose extends Component {
     this.handleCheck = this.handleCheck.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
   }
-  componentWillMount() {
-    this.setState({restaurants: this.props.allRestaurants});
-  }
   handleClick() {
     let selectedRestaurants = this.state.value.map(restaurant => restaurant.value);
     base.post(`parties/${this.props.partyId}/selections/${base.auth().currentUser.uid}`, {
@@ -35,15 +32,13 @@ class Choose extends Component {
       this.setState({value});
     }
   }
-  updateRestaurants(searchTerm) {
-    getRestaurants(searchTerm).then(restaurants => this.setState({restaurants}));
-  }
   handleSelect(value) {
     console.log(value);
     this.setState({value});
   }
   render() {
     let { allRestaurants } = this.props;
+<<<<<<< HEAD
     console.log(this.state.restaurants);
     let checkboxes = this.state.restaurants.map((restaurant, index) => (
       <label className="RestaurantList" key={index}>
@@ -56,28 +51,42 @@ class Choose extends Component {
           {restaurant.location.zip_code}</p>
         </div>
         <input style={{marginLeft: "10px",height: "15px", width: "15px"}}ref={restaurant.id} type="checkbox" aria-label="..."
+=======
+    let checkboxes = allRestaurants.map((restaurant, index) => (
+      <label key={index}>
+        <input ref={restaurant.id} type="checkbox" aria-label="..."
+>>>>>>> develop
           checked={this.state.value.filter(i => i.value === restaurant.id).length}
           onChange={this.handleCheck.bind(this, restaurant)}/><br></br>
 
       </label>
 
     ));
-    let options = this.state.restaurants.map(restaurant => {
+    let options = allRestaurants.map(restaurant => {
       return {value: restaurant.id, label: restaurant.name}
     });
     return (
       <div className="Choices">
         <MediaQuery query='(min-width: 701px)'>
+<<<<<<< HEAD
           <h2 style={{fontSize: "50px", color: "#6798cd", fontFamily: "fantasy"}}>Where would you like to eat?</h2>
           {checkboxes}
+=======
+          <div>
+            <h2>What do you want to eat?</h2>
+            {checkboxes || "loading..."}
+          </div>
+>>>>>>> develop
         </MediaQuery>
         <MediaQuery query='(max-width: 700px)'>
-          <Select
-            multi={true}
-            value={this.state.value}
-            placeholder="What do you want to eat?"
-            options={options}
-            onChange={this.handleSelect}/>
+          <div>
+            <Select
+              multi={true}
+              value={this.state.value}
+              placeholder="What do you want to eat?"
+              options={options}
+              onChange={this.handleSelect}/>
+          </div>
         </MediaQuery>
         <button style={{width: "100px"}} onClick={this.handleClick} className="btn btn-primary">Next</button>
       </div>
