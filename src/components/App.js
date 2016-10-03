@@ -10,9 +10,11 @@ class App extends Component {
     this.state = {
       allRestaurants: [],
       partyId: null,
-      users: []
+      users: [],
+      navIsVisible: false
     };
     this.addPartyId = this.addPartyId.bind(this);
+    this.showNav = this.showNav.bind(this);
   }
   componentDidMount() {
     getRestaurants().then(allRestaurants => this.setState({allRestaurants}));
@@ -27,20 +29,26 @@ class App extends Component {
   addPartyId(partyId) {
     this.setState({partyId});
   }
+  showNav() {
+    this.setState({navIsVisible: true});
+  }
   render() {
     return (
       <div className="App">
         <div className="App-header">
           <div className="animated bounce" id="Head"><a>tryAngle</a></div>
-          <input type="text" className="form-control" style={{width: "25%", float: "right"}} placeholder="Search"/>
-          <Link style={{float: "right", margin: "8px", color: "#DADBEC"}} to="/profile">Profile</Link>
-          <Link to="/home" style={{float: "right", margin: "8px", color: "#DADBEC"}}>Home<span className="sr-only">(current)</span></Link>
+          <div style={this.state.navIsVisible ? {display: "block"} : {display: "none"}}>
+            <input type="text" className="form-control" style={{width: "25%", float: "right"}} placeholder="Search"/>
+            <Link style={{float: "right", margin: "8px", color: "#DADBEC"}} to="/profile">Profile</Link>
+            <Link to="/home" style={{float: "right", margin: "8px", color: "#DADBEC"}}>Home<span className="sr-only">(current)</span></Link>
+          </div>
         </div>
         {cloneElement(this.props.children, {
           allRestaurants: this.state.allRestaurants,
           partyId: this.state.partyId,
           addPartyId: this.addPartyId,
-          users: this.state.users
+          users: this.state.users,
+          showNav: this.showNav
         })}
       </div>
     );
