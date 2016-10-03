@@ -38,7 +38,6 @@ class Choose extends Component {
   }
   render() {
     let { allRestaurants } = this.props;
-<<<<<<< HEAD
     console.log(this.state.restaurants);
     let checkboxes = this.state.restaurants.map((restaurant, index) => (
       <label className="RestaurantList" key={index}>
@@ -51,11 +50,6 @@ class Choose extends Component {
           {restaurant.location.zip_code}</p>
         </div>
         <input style={{marginLeft: "10px",height: "15px", width: "15px"}}ref={restaurant.id} type="checkbox" aria-label="..."
-=======
-    let checkboxes = allRestaurants.map((restaurant, index) => (
-      <label key={index}>
-        <input ref={restaurant.id} type="checkbox" aria-label="..."
->>>>>>> develop
           checked={this.state.value.filter(i => i.value === restaurant.id).length}
           onChange={this.handleCheck.bind(this, restaurant)}/><br></br>
 
@@ -68,15 +62,9 @@ class Choose extends Component {
     return (
       <div className="Choices">
         <MediaQuery query='(min-width: 701px)'>
-<<<<<<< HEAD
+
           <h2 style={{fontSize: "50px", color: "#6798cd", fontFamily: "fantasy"}}>Where would you like to eat?</h2>
           {checkboxes}
-=======
-          <div>
-            <h2>What do you want to eat?</h2>
-            {checkboxes || "loading..."}
-          </div>
->>>>>>> develop
         </MediaQuery>
         <MediaQuery query='(max-width: 700px)'>
           <div>
