@@ -15,7 +15,6 @@ class Login extends Component {
     if (error) {
       console.log(error)
     } else {
-      this.props.listenForInvite(userData.uid);
       base.fetch(`users/${userData.uid}/partyId`, {
         context: this,
         then(partyId){
@@ -32,6 +31,7 @@ class Login extends Component {
               }
             })
           } else {
+            this.props.listenForInvite(userData.uid);
             this.context.router.push("choose-friends");
           }
         }
