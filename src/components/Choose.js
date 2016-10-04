@@ -40,7 +40,7 @@ class Choose extends Component {
     let { allRestaurants } = this.props;
     console.log(allRestaurants);
     let checkboxes = allRestaurants.map((restaurant, index) => (
-      <label className="RestaurantList" key={index}>
+      <label className="RestaurantList col-sm-6 col-sm-offset" key={index}>
       <img src={restaurant.image_url} style={{width: "100px", height: "100px"}} alt="..." className="img-thumbnail"/>
         <div style={{margin: "0px"}}>
           <p style={{height: "30px", margin: "0", color: "#4579B4", fontFamily: "fantasy", fontSize: "30px", fontWeight: "bold"}}>{restaurant.name}</p>
@@ -60,7 +60,7 @@ class Choose extends Component {
       return {value: restaurant.id, label: restaurant.name}
     });
     return (
-      <div className="Choices">
+      <div className="Choices container-responsive">
         <MediaQuery query='(min-width: 701px)'>
 
           <h2 style={{fontSize: "50px", color: "#6798cd", fontFamily: "fantasy"}}>Where would you like to eat?</h2>

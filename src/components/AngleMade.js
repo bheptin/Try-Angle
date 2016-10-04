@@ -30,7 +30,6 @@ class AngleMade extends Component {
             context: this,
             then(venue) {
               if (venue) {
-                console.log(allRestaurants.filter(restaurant => restaurant.id === venue)[0]);
                 this.setState({venue: allRestaurants.filter(restaurant => restaurant.id === venue)[0]});
               } else {
                 base.post(`parties/${partyId}/venue`, {
