@@ -9,6 +9,9 @@ class Friends extends Component {
     super(props)
     this.handleClick = this.handleClick.bind(this);
   }
+  componentWillMount() {
+    this.props.listenForInvite(base.auth().currentUser.uid);
+  }
   handleClick() {
     let partyId = randomstring.generate();
     this.props.addPartyId(partyId);
@@ -30,7 +33,7 @@ class Friends extends Component {
     this.context.router.push("choose-restaurants");
   }
   render () {
-    let friendsList = this.props.users.filter(user => user.key !== this.props.uid).map((user, index) => (
+    let friendsList = this.props.users.filter(user => user.key !== base.auth().currentUser.uid).map((user, index) => (
       <li key={index}>
         <h4>{user.personalInfo.firstName} {user.personalInfo.lastName}</h4>
         <input ref={user.key} type="checkbox"/>
@@ -38,7 +41,7 @@ class Friends extends Component {
     ));
     return(
       <div className="Friends">
-        <h3>Who you like to enjoy a meal with?</h3>
+        <h3>Who would you like to enjoy a meal with?</h3>
         <img style={{width: "300px", height: "250px", float: "right", marginRight: "100px"}} src="http://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/new_years_healthy_eating_slideshow/getty_rm_photo_of_friends_eating_appetizers.jpg"  className="img-circle"/>
 
         <ul style={{listStyleType: "none"}}>

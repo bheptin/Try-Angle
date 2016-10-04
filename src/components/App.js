@@ -15,6 +15,7 @@ class App extends Component {
     };
     this.addPartyId = this.addPartyId.bind(this);
     this.showNav = this.showNav.bind(this);
+    this.listenForInvite = this.listenForInvite.bind(this);
   }
   componentDidMount() {
     getRestaurants().then(allRestaurants => this.setState({allRestaurants}));
@@ -25,6 +26,21 @@ class App extends Component {
         this.setState({users})
       }
     });
+  }
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
+  listenForInvite(userId) {
+    this.ref = base.listenTo(`users/${userId}/partyId`, {
+      context: this,
+      asArray: true,
+      then(partyId) {
+        if (partyId.length) {
+          this.addPartyId(partyId);
+          this.context.router.push("invitation");
+        }
+      }
+    })
   }
   addPartyId(partyId) {
     this.setState({partyId});
@@ -48,11 +64,16 @@ class App extends Component {
           partyId: this.state.partyId,
           addPartyId: this.addPartyId,
           users: this.state.users,
-          showNav: this.showNav
+          showNav: this.showNav,
+          listenForInvite: this.listenForInvite
         })}
       </div>
     );
   }
+}
+
+App.contextTypes = {
+  router: React.PropTypes.object.isRequired
 }
 
 export default App;
