@@ -7,6 +7,8 @@ class AngleMade extends Component {
       super(props);
       this.state = {venue: null}
     }
+
+
     componentWillMount() {
       this.decideVenue(this.props);
     }
@@ -38,15 +40,28 @@ class AngleMade extends Component {
                 })
                 this.setState({venue: allRestaurants.filter(restaurant => restaurant.id === randomChoice)[0]});
               }
+
             }
           })
         }
       })
     }
     render () {
+
       return(
         <div className="angleMade">
-          <h1>{this.state.venue ? this.state.venue.name : ""}</h1>
+          <img src={this.state.venue ? this.state.venue.image_url : ''} style={{width: "275px", height: "250px", marginTop: "20px"}} alt="..." className="img-thumbnail"/>
+          <h1 style={{marginBottom: "0px", fontSize: "50px", color: "#6798cd", fontFamily: "fantasy"}}><a href={this.state.venue ? this.state.venue.url : ""}> {this.state.venue ? this.state.venue.name : ""}</a></h1>
+            <h2 style={{textAlign: "inherit", margin: "0px", fontSize: "30px", color: "#6798cd",}}> {this.state.venue ? this.state.venue.location.address1 : ''}
+                {this.state.venue ? `${this.state.venue.location.city}, ` : ''}
+                {this.state.venue ? this.state.venue.location.state : ''}
+                {this.state.venue ? this.state.venue.location.zip_code : ''}
+            </h2>
+            <p style={{textAlign: "inherit", margin: "0px", fontSize: "20px", color: "#6798cd",}}>{this.state.venue ? `Phone #: ${this.state.venue.phone.replace('+1', '')}` : ''}<br></br>
+                {this.state.venue ? `Price: ${this.state.venue.price}`: ''}</p>
+
+
+            <button style={{marginLeft: "140px"}} className="btn btn-primary btn-sm">Got It!</button>
         </div>
 
       )
