@@ -31,12 +31,11 @@ class App extends Component {
     base.removeBinding(this.ref);
   }
   listenForInvite(userId) {
-    this.ref = base.listenTo(`users/${userId}/partyId`, {
+    this.ref = base.listenTo(`users/${userId}`, {
       context: this,
-      asArray: true,
-      then(partyId) {
-        if (partyId.length) {
-          this.addPartyId(partyId);
+      then(userInfo) {
+        if (userInfo.partyId && !this.state.partyId) {
+          this.addPartyId(userInfo.partyId);
           this.context.router.push("invitation");
         }
       }

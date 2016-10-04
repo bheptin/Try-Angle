@@ -13,6 +13,7 @@ class WaitingRoom extends Component {
     this.ref = base.listenTo(`parties/${partyId}/readyToGo`, {
       context: this,
       then(readyToGo) {
+        this.addToDinedWith(_.keysIn(this.state.readyToGo));
         this.setState({readyToGo});
         if ( !( _.includes(readyToGo, false) ) ) {
           this.context.router.push("angle-made");
@@ -22,6 +23,15 @@ class WaitingRoom extends Component {
   }
   componentWillUnmount() {
     base.removeBinding(this.ref);
+  }
+  addToDinedWith(friends) {
+    let userId = base.auth().currentUser.uid;
+    friends = friends.filter(friend => friend !== userId);
+    friends.forEach(friend => {
+      base.push(`users/${userId}/previouslyDinedWith`, {
+        data: friend
+      })
+    });
   }
   render() {
     let boxes = this.props.users.filter( user => _.keysIn(this.state.readyToGo).includes(user.key) )
