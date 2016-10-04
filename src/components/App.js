@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { getRestaurants } from '../config/api';
 import base from '../config/ReBase';
 import '../App.css';
+import favicon from '../favicon.ico';
 
 class App extends Component {
   constructor() {
