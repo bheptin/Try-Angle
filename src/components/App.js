@@ -19,13 +19,16 @@ class App extends Component {
     this.listenForInvite = this.listenForInvite.bind(this);
   }
   componentDidMount() {
-    getRestaurants().then(allRestaurants => this.setState({allRestaurants}));
-    base.fetch(`users`, {
-      context: this,
-      asArray: true,
-      then(users) {
-        this.setState({users})
-      }
+    navigator.geolocation.getCurrentPosition(position => {
+      let { latitude, longitude } = position.coords;
+      getRestaurants(latitude, longitude).then(allRestaurants => this.setState({allRestaurants}));
+      base.fetch(`users`, {
+        context: this,
+        asArray: true,
+        then(users) {
+          this.setState({users})
+        }
+      });
     });
   }
   componentWillUnmount() {

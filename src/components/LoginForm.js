@@ -44,7 +44,7 @@ class LoginForm extends Component {
               <div className="bar"></div>
             </div>
             <div className="button-container">
-              <button style={this.state.userCanProceed ? {borderColor: "#ec2652"} : {}}><span>Go</span></button>
+              <button style={this.state.userCanProceed ? {borderColor: "#6798CD"} : {}}><span>Go</span></button>
             </div>
           </form>
         </div>

@@ -59,11 +59,7 @@ class Login extends Component {
   }
 
   render () {
-    return (
-        <div>
-          <LoginForm handleSubmit={this.handleSubmit}/>
-      </div>
-    )
+    return <LoginForm handleSubmit={this.handleSubmit}/>
   }
 }
 
