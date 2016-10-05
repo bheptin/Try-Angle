@@ -6,9 +6,8 @@ class AngleMade extends Component {
     constructor (props) {
       super(props);
       this.state = {venue: null}
+      this.clearPartyFromUser = this.clearPartyFromUser.bind(this);
     }
-
-
     componentWillMount() {
       this.decideVenue(this.props);
     }
@@ -45,6 +44,15 @@ class AngleMade extends Component {
         }
       })
     }
+    clearPartyFromUser() {
+      let uid = base.auth().currentUser.uid;
+      base.update(`users/${uid}`, {
+        data: {
+          partyId: null
+        }
+      });
+      this.context.router.push("choose-friends");
+    }
     render () {
 
       return(
@@ -60,11 +68,15 @@ class AngleMade extends Component {
                 {this.state.venue ? `Price: ${this.state.venue.price}`: ''}</p>
 
 
-            <button style={{marginLeft: "140px"}} className="btn btn-primary btn-sm">Got It!</button>
+              <button style={{marginLeft: "140px"}} className="btn btn-primary btn-sm" onClick={this.clearPartyFromUser}>Got It!</button>
         </div>
 
       )
     }
+}
+
+AngleMade.contextTypes = {
+  router: React.PropTypes.object.isRequired
 }
 
 export default AngleMade;

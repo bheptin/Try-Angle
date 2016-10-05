@@ -19,6 +19,7 @@ class Login extends Component {
         context: this,
         then(partyId){
           if (partyId) {
+            console.log(partyId);
             this.props.addPartyId(partyId);
             base.fetch(`parties/${partyId}`, {
               context: this,
