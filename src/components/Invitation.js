@@ -22,7 +22,11 @@ class Invitation extends Component {
       this.context.router.push("choose-restaurants");
     } else {
       base.update(`parties/${this.props.partyId}/readyToGo/${base.auth().currentUser.uid}`, {data: {}});
-      base.update(`users/${base.auth().currentUser.uid}/partyId}`, {data: {}});
+      base.update(`users/${base.auth().currentUser.uid}`, {
+        data: {
+          partyId: null
+        }
+      });
       this.context.router.push("choose-friends");
     }
   }

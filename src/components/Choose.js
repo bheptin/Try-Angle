@@ -76,7 +76,7 @@ class Choose extends Component {
               onChange={this.handleSelect}/>
           </div>
         </MediaQuery>
-        <button style={{width: "100px"}} onClick={this.handleClick} className="btn btn-primary">Next</button>
+        <button style={{width: "100px", marginTop: "50px"}} onClick={this.handleClick} className="btn btn-primary">Next</button>
       </div>
     )
   }
