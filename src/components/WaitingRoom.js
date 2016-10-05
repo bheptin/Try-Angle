@@ -13,7 +13,7 @@ class WaitingRoom extends Component {
     this.ref = base.listenTo(`parties/${partyId}/readyToGo`, {
       context: this,
       then(readyToGo) {
-        this.addToDinedWith(_.keysIn(this.state.readyToGo));
+        this.addToDinedWith(_.keysIn(readyToGo));
         this.setState({readyToGo});
         if ( !( _.includes(readyToGo, false) ) ) {
           this.context.router.push("angle-made");

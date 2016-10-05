@@ -51,10 +51,12 @@ class Friends extends Component {
   }
   handleChange(event) {
     let searchTerm = event.target.value.toLowerCase();
+    let uid = base.auth().currentUser.uid;
     if (searchTerm.length) {
       let filteredUsers = this.props.users.filter(user => {
-        return user.personalInfo.firstName.toLowerCase().includes(searchTerm) || user.personalInfo.lastName.toLowerCase().includes(searchTerm)
-      })
+        let { firstName, lastName } = user.personalInfo;
+        return firstName.toLowerCase().includes(searchTerm) || lastName.toLowerCase().includes(searchTerm)
+      }).filter(user => user.key !== uid);
       this.setState({filteredUsers})
     } else {
       this.setState({filteredUsers: []})
