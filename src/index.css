@@ -50,24 +50,6 @@ body {
   display: flex;
 }
 
-@media (max-width: 992px) {
-  .form-group {
-    display: inline-block;
-  }
-}
-
-@media (max-width: 767px) {
-  .Friends h3 {
-    text-align: center;
-  }
-}
-
-@media (max-width: 530px) {
-  .card.alt {
-    right: 20px
-  }
-}
-
 .invite h2 {
   font-family: fantasy;
   color: #6798cd;
@@ -99,4 +81,53 @@ body {
 
 .card h1 {
   text-align: left;
+}
+
+.waiting-room-container {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.waiting-room-container div {
+  width: 300px;
+  height: 300px;
+}
+
+.fa-cutlery {
+  margin-top: 70px;
+  font-size: 50px;
+}
+
+@media (max-width: 992px) {
+  .form-group {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 767px) {
+  .Friends h3 {
+    text-align: center;
+  }
+}
+
+@media (max-width: 530px) {
+  .card.alt {
+    right: 20px
+  }
+}
+
+@media (max-width: 900px) {
+  .waiting-room-container div {
+    width: 100px;
+    height: 100px;
+  }
+  .waiting-room-container i {
+    margin: 0;
+    font-size: 30px;
+  }
+  .waiting-room-container h2 {
+    font-size: 10px;
+  }
 }

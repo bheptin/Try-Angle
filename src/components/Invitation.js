@@ -21,7 +21,9 @@ class Invitation extends Component {
       base.push(`parties/${this.props.partyId}/attending`, {data: base.auth().currentUser.uid});
       this.context.router.push("choose-restaurants");
     } else {
-      base.update(`parties/${this.props.partyId}/readyToGo/${base.auth().currentUser.uid}`, {data: {}});
+      base.update(`parties/${this.props.partyId}/readyToGo`, {
+        data: {[base.auth().currentUser.uid]: null}
+      });
       base.update(`users/${base.auth().currentUser.uid}`, {
         data: {
           partyId: null

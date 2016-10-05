@@ -37,12 +37,12 @@ class WaitingRoom extends Component {
     let boxes = this.props.users.filter( user => _.keysIn(this.state.readyToGo).includes(user.key) )
       .map((user, index) => (
         <div key={index} style={{ border: this.state.readyToGo[user.key] ? "3px solid green" : "3px solid red" }}>
-          <p>{user.personalInfo.firstName} is {this.state.readyToGo[user.key] ? "" : "not"} ready to go</p>
+          <h2>{user.personalInfo.firstName} is {this.state.readyToGo[user.key] ? "" : "not"} ready to go</h2>
+          {this.state.readyToGo[user.key] ? <i className="fa fa-cutlery" aria-hidden="true"></i> : null}
         </div>
       ))
     return (
-      <div>
-        <h1>Waiting Room</h1>
+      <div className="waiting-room-container">
         {boxes}
       </div>
     )
