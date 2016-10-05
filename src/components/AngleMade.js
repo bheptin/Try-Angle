@@ -68,7 +68,7 @@ class AngleMade extends Component {
                 {this.state.venue ? `Price: ${this.state.venue.price}`: ''}</p>
 
 
-              <button style={{marginLeft: "140px"}} className="btn btn-primary btn-sm" onClick={this.clearPartyFromUser}>Got It!</button>
+              <button style={{marginTop: "40px", width: "120px"}} className="btn btn-primary btn-sm" onClick={this.clearPartyFromUser}>Got It!</button>
         </div>
 
       )
