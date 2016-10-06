@@ -49,7 +49,7 @@ class BasicInfo extends Component {
               <label>Last Name</label>
               <input type="text" value={this.state.lastName || ""} placeholder="Doe" className="form-control" onChange={this.handleChange.bind(this, 'lastName')}/>
             </div>
-            <Link to="choose-friends"><button className="btn btn-primary">Next</button></Link>
+            <Link to="/choose-friends"><button className="btn btn-primary">Next</button></Link>
         </div>
       </ReactCSSTransitionGroup>
     )

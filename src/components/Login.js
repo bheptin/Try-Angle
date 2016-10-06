@@ -15,6 +15,7 @@ class Login extends Component {
     if (error) {
       console.log(error)
     } else {
+      localStorage.setItem('currentUser', userData.uid);
       base.fetch(`users/${userData.uid}/partyId`, {
         context: this,
         then(partyId){
@@ -43,6 +44,7 @@ class Login extends Component {
     if (error) {
       console.log(error);
     } else {
+      localStorage.setItem('currentUser', userData.uid);
       this.context.router.push("profile");
     }
   }

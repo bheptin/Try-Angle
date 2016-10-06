@@ -9,7 +9,7 @@ import base from '../config/ReBase';
 class Choose extends Component {
   constructor() {
     super();
-    this.state = {restaurants: [], value: []};
+    this.state = {value: []};
     this.handleClick = this.handleClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
@@ -40,45 +40,47 @@ class Choose extends Component {
     let { allRestaurants } = this.props;
     console.log(allRestaurants);
     let checkboxes = allRestaurants.map((restaurant, index) => (
-      <label className="RestaurantList col-sm-6 col-sm-offset" key={index}>
-      <img src={restaurant.image_url} style={{width: "100px", height: "100px"}} alt="..." className="img-thumbnail"/>
-        <div style={{margin: "0px"}}>
-          <p style={{height: "30px", margin: "0", color: "#4579B4", fontFamily: "fantasy", fontSize: "30px", fontWeight: "bold"}}>{restaurant.name}</p>
-          <p style={{color: "#2A619E",float: "left"}}>{restaurant.location.address1}<br></br>
-          {restaurant.location.city}
-          {restaurant.location.state}
-          {restaurant.location.zip_code}</p>
-        </div>
-        <input style={{marginLeft: "10px",height: "15px", width: "15px"}}ref={restaurant.id} type="checkbox" aria-label="..."
-          checked={this.state.value.filter(i => i.value === restaurant.id).length}
-          onChange={this.handleCheck.bind(this, restaurant)}/><br></br>
-
-      </label>
-
+      <li className={restaurant.name.length > 30 ? "col-md-12 col-lg-6 col-xl-6" : "col-md-6 col-lg-4 col-xl-4"} style={{padding: "0", height: "190px"}}>
+        <label className="RestaurantList col-sm-6 col-sm-offset" key={index}>
+          <img src={restaurant.image_url} style={{width: "100px", height: "100px"}} alt="..." className="img-thumbnail"/>
+          <div style={{margin: "0px"}}>
+            <h3 style={{color: "#4579B4", fontFamily: "fantasy", fontSize: "30px", fontWeight: "bold"}}>{restaurant.name}</h3>
+            <h4 style={{color: "#2A619E",float: "left"}}>{restaurant.location.address1}<br></br></h4>
+          </div>
+          <input style={{marginLeft: "10px",height: "15px", width: "15px"}}ref={restaurant.id} type="checkbox" aria-label="..."
+            checked={this.state.value.filter(i => i.value === restaurant.id).length}
+            onChange={this.handleCheck.bind(this, restaurant)}/><br></br>
+        </label>
+      </li>
     ));
     let options = allRestaurants.map(restaurant => {
       return {value: restaurant.id, label: restaurant.name}
     });
-    return (
-      <div className="Choices container-responsive">
-        <MediaQuery query='(min-width: 701px)'>
-
+    if (allRestaurants.length) {
+      return (
+        <div>
           <h2 style={{fontSize: "50px", color: "#6798cd", fontFamily: "fantasy"}}>Where would you like to eat?</h2>
-          {checkboxes}
-        </MediaQuery>
-        <MediaQuery query='(max-width: 700px)'>
-          <div>
-            <Select
-              multi={true}
-              value={this.state.value}
-              placeholder="What do you want to eat?"
-              options={options}
-              onChange={this.handleSelect}/>
+          <button style={{width: "100px", marginTop: "50px"}} onClick={this.handleClick} className="btn btn-primary">Next</button>
+          <div className="container-fluid" style={{marginTop: "50px"}}>
+            <MediaQuery query='(min-width: 901px)'>
+              <ul className="row" style={{listStyleType: "none", padding: "0"}}>{checkboxes}</ul>
+            </MediaQuery>
           </div>
-        </MediaQuery>
-        <button style={{width: "100px", marginTop: "50px"}} onClick={this.handleClick} className="btn btn-primary">Next</button>
-      </div>
-    )
+          <MediaQuery query='(max-width: 900px)'>
+            <div>
+              <Select
+                multi={true}
+                value={this.state.value}
+                placeholder="What do you want to eat?"
+                options={options}
+                onChange={this.handleSelect}/>
+            </div>
+          </MediaQuery>
+        </div>
+      )
+    } else {
+      return <h2 style={{fontSize: "50px", color: "#6798cd", fontFamily: "fantasy"}}>Where would you like to eat?</h2>
+    }
   }
 }
 

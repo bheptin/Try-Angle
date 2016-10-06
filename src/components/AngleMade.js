@@ -54,18 +54,24 @@ class AngleMade extends Component {
       this.context.router.push("choose-friends");
     }
     render () {
-
+      let phone = this.state.venue ? this.state.venue.phone.replace('+1', '').split("") : [];
+      phone.splice(3, 0, "-");
+      phone.splice(7, 0, "-");
+      phone = phone.join("");
       return(
         <div className="angleMade">
           <img src={this.state.venue ? this.state.venue.image_url : ''} style={{width: "275px", height: "250px", marginTop: "20px"}} alt="..." className="img-thumbnail"/>
           <h1 style={{marginBottom: "0px", fontSize: "50px", color: "#6798cd", fontFamily: "fantasy"}}><a href={this.state.venue ? this.state.venue.url : ""}> {this.state.venue ? this.state.venue.name : ""}</a></h1>
             <h2 style={{textAlign: "inherit", margin: "0px", fontSize: "30px", color: "#6798cd",}}> {this.state.venue ? this.state.venue.location.address1 : ''}
+                {' '}
                 {this.state.venue ? `${this.state.venue.location.city}, ` : ''}
                 {this.state.venue ? this.state.venue.location.state : ''}
+                {' '}
                 {this.state.venue ? this.state.venue.location.zip_code : ''}
             </h2>
-            <p style={{textAlign: "inherit", margin: "0px", fontSize: "20px", color: "#6798cd",}}>{this.state.venue ? `Phone #: ${this.state.venue.phone.replace('+1', '')}` : ''}<br></br>
-                {this.state.venue ? `Price: ${this.state.venue.price}`: ''}</p>
+            <p style={{textAlign: "inherit", margin: "0px", fontSize: "20px", color: "#6798cd"}}>
+              {this.state.venue ? `Phone #: ${phone}` : ''}<br></br>
+              {this.state.venue ? `Price: ${this.state.venue.price}`: ''}</p>
 
 
               <button style={{marginTop: "40px", width: "120px"}} className="btn btn-primary btn-sm" onClick={this.clearPartyFromUser}>Got It!</button>
