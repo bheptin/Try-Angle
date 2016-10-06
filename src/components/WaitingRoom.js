@@ -34,10 +34,11 @@ class WaitingRoom extends Component {
     });
   }
   render() {
+    let uid = base.auth().currentUser ? base.auth().currentUser.uid : localStorage.currentUser;
     let boxes = this.props.users.filter( user => _.keysIn(this.state.readyToGo).includes(user.key) )
       .map((user, index) => (
         <div key={index} style={{ border: this.state.readyToGo[user.key] ? "3px solid green" : "3px solid red" }}>
-          <h2>{user.personalInfo.firstName} is {this.state.readyToGo[user.key] ? "" : "not"} ready to go</h2>
+          <h2>{user.key !== uid ? `${user.personalInfo.firstName} is` : "You are"} {this.state.readyToGo[user.key] ? "" : "not"} ready to go</h2>
           {this.state.readyToGo[user.key] ? <i className="fa fa-cutlery" aria-hidden="true"></i> : null}
         </div>
       ))

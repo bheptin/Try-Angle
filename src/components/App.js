@@ -22,12 +22,10 @@ class App extends Component {
     navigator.geolocation.getCurrentPosition(position => {
       let { latitude, longitude } = position.coords;
       getRestaurants(latitude, longitude).then(allRestaurants => this.setState({allRestaurants}));
-      base.fetch(`users`, {
+      base.bindToState(`users`, {
         context: this,
-        asArray: true,
-        then(users) {
-          this.setState({users})
-        }
+        state: 'users',
+        asArray: true
       });
     });
   }

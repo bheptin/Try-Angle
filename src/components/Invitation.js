@@ -33,12 +33,17 @@ class Invitation extends Component {
     }
   }
   render() {
-    let friends = this.props.users.filter(user => this.state.invitees.includes(user.key) && user.key !== base.auth().currentUser.uid);
-    friends = friends.map(friend => `${friend.personalInfo.firstName} ${friend.personalInfo.lastName}`).join(", ");
+    let uid = base.auth().currentUser ? base.auth().currentUser.uid : localStorage.currentUser;
+    let friends = this.props.users.filter(user => this.state.invitees.includes(user.key) && user.key !== uid);
+    let friendsString = friends.map(friend => `${friend.personalInfo.firstName} ${friend.personalInfo.lastName}`).join(", ");
+    if (friends.length > 1) {
+      let lastComma = friendsString.lastIndexOf(',');
+      friendsString = friendsString.substring(0, lastComma) + ' and' + friendsString.substring(lastComma + 1);
+    }
     return (
       <div className="invitation">
         <div className="invite">
-          <h2 className="text-center">You&apos;ve been invited to dine with {friends}.<br>
+          <h2 className="text-center">You&apos;ve been invited to dine with {friendsString}.<br>
                </br>Do you accept this invitation?</h2>
         </div>
         <div className="inviteButtons">

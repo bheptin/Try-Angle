@@ -6,7 +6,7 @@ import ProfileContainer from "../containers/ProfileContainer";
 import BasicInfo from "../components/BasicInfo";
 import FoodPrefs from "../components/FoodPrefs";
 import Allergies from "../components/Allergies";
-import Friends from '../components/Friends';
+import FriendsContainer from '../containers/FriendsContainer';
 import Choose from '../components/Choose';
 import WaitingRoom from '../components/WaitingRoom';
 import AngleMade from '../components/AngleMade';
@@ -19,7 +19,7 @@ const routes = (
       <IndexRedirect to="login" />
       <Route path="login" component={Login} />
       <Route path="invitation" component={Invitation} />
-      <Route path="choose-friends" component={Friends}/>
+      <Route path="choose-friends" component={FriendsContainer}/>
       <Route path="choose-restaurants" component={Choose}/>
       <Route path="waiting-room" component={WaitingRoom}/>
       <Route path="angle-made" component={AngleMade}/>
