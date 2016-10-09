@@ -68,6 +68,7 @@ class App extends Component {
           showNav: this.showNav,
           listenForInvite: this.listenForInvite
         })}
+        
       </div>
     );
   }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import base from '../config/ReBase';
 import _ from 'lodash';
+import SimpleMapPage  from './SimpleMapPage.js';
+
 
 class AngleMade extends Component {
     constructor (props) {
@@ -32,6 +34,7 @@ class AngleMade extends Component {
             context: this,
             then(venue) {
               if (venue) {
+
                 this.setState({venue: allRestaurants.filter(restaurant => restaurant.id === venue)[0]});
               } else {
                 base.post(`parties/${partyId}/venue`, {
@@ -46,8 +49,10 @@ class AngleMade extends Component {
       })
     }
     render () {
+        console.log(this.props.allRestaurants[0]);
 
       return(
+
         <div className="angleMade">
           <img src={this.state.venue ? this.state.venue.image_url : ''} style={{width: "275px", height: "250px", marginTop: "20px"}} alt="..." className="img-thumbnail"/>
           <h1 style={{marginBottom: "0px", fontSize: "50px", color: "#6798cd", fontFamily: "fantasy"}}><a href={this.state.venue ? this.state.venue.url : ""}> {this.state.venue ? this.state.venue.name : ""}</a></h1>
@@ -59,8 +64,10 @@ class AngleMade extends Component {
             <p style={{textAlign: "inherit", margin: "0px", fontSize: "20px", color: "#6798cd",}}>{this.state.venue ? `Phone #: ${this.state.venue.phone.replace('+1', '')}` : ''}<br></br>
                 {this.state.venue ? `Price: ${this.state.venue.price}`: ''}</p>
 
-
+              <SimpleMapPage lat={this.state.venue ? this.state.venue.coordinates.latitude : ''}
+                             lng={this.state.venue ? this.state.venue.coordinates.longitude : ''}/>
             <button style={{marginLeft: "140px"}} className="btn btn-primary btn-sm">Got It!</button>
+
         </div>
 
       )
