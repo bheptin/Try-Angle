@@ -4,8 +4,6 @@ import App from "../components/App";
 import Login from "../components/Login";
 import ProfileContainer from "../containers/ProfileContainer";
 import BasicInfo from "../components/BasicInfo";
-import FoodPrefs from "../components/FoodPrefs";
-import Allergies from "../components/Allergies";
 import FriendsContainer from '../containers/FriendsContainer';
 import Choose from '../components/Choose';
 import WaitingRoom from '../components/WaitingRoom';
@@ -26,8 +24,6 @@ const routes = (
       <Route path="profile" component={ProfileContainer}>
         <IndexRedirect to="basic-info" />
         <Route path="basic-info" component={BasicInfo}/>
-        <Route path="food-prefs" component={FoodPrefs}/>
-        <Route path="allergies" component={Allergies}/>
       </Route>
     </Route>
   </Router>

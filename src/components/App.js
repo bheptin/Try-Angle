@@ -68,6 +68,7 @@ class App extends Component {
           showNav: this.showNav,
           listenForInvite: this.listenForInvite
         })}
+
       </div>
     );
   }
@@ -78,6 +79,3 @@ App.contextTypes = {
 }
 
 export default App;
-
-/*          <Link style={{float: "right", margin: "8px", color: "#DADBEC"}} to="/profile">Profile</Link>
-          <Link to="/home" style={{float: "right", margin: "8px", color: "#DADBEC"}}>Home<span className="sr-only">(current)</span></Link>*/
