@@ -15,11 +15,12 @@ class Login extends Component {
     if (error) {
       console.log(error)
     } else {
-      this.props.listenForInvite(userData.uid);
+      localStorage.setItem('currentUser', userData.uid);
       base.fetch(`users/${userData.uid}/partyId`, {
         context: this,
         then(partyId){
           if (partyId) {
+            console.log(partyId);
             this.props.addPartyId(partyId);
             base.fetch(`parties/${partyId}`, {
               context: this,
@@ -32,6 +33,7 @@ class Login extends Component {
               }
             })
           } else {
+            this.props.listenForInvite(userData.uid);
             this.context.router.push("choose-friends");
           }
         }
@@ -42,6 +44,7 @@ class Login extends Component {
     if (error) {
       console.log(error);
     } else {
+      localStorage.setItem('currentUser', userData.uid);
       this.context.router.push("profile");
     }
   }
@@ -58,11 +61,7 @@ class Login extends Component {
   }
 
   render () {
-    return (
-        <div>
-          <LoginForm handleSubmit={this.handleSubmit}/>
-      </div>
-    )
+    return <LoginForm handleSubmit={this.handleSubmit}/>
   }
 }
 

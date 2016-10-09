@@ -3,6 +3,11 @@ import $ from 'jquery';
 import '../login.css';
 
 class LoginForm extends Component {
+  constructor() {
+    super();
+    this.state = {userCanProceed: false};
+    this.handleChange = this.handleChange.bind(this);
+  }
   componentDidMount() {
     $('.toggle').on('click', function() {
       $('.container').stop().addClass('active');
@@ -12,6 +17,13 @@ class LoginForm extends Component {
       $('.container').stop().removeClass('active');
     });
   }
+  handleChange(event) {
+    if (this.refs.email.value.length && event.target.value.length) {
+      this.setState({userCanProceed: true});
+    } else {
+      this.setState({userCanProceed: false});
+    }
+  }
   render() {
     return (
       <div className="container login-form">
@@ -20,19 +32,19 @@ class LoginForm extends Component {
         <div className="card"></div>
         <div className="card">
           <h1 className="title">Login</h1>
-          <form onSubmit={this.props.handleSubmit.bind(this, true)}>
+          <form className="signup" onSubmit={this.props.handleSubmit.bind(this, true)}>
             <div className="input-container">
-              <input type="text" id="Email" required="required" autoComplete="off"/>
+              <input type="text" ref="email" id="Email" required="required" autoComplete="off"/>
               <label htmlFor="Email">Email</label>
               <div className="bar"></div>
             </div>
             <div className="input-container">
-              <input type="password" id="Password" required="required"/>
+              <input type="password" id="Password" required="required" onChange={this.handleChange}/>
               <label htmlFor="Password">Password</label>
               <div className="bar"></div>
             </div>
             <div className="button-container">
-              <button><span>Go</span></button>
+              <button style={this.state.userCanProceed ? {borderColor: "#6798CD"} : {}}><span>Go</span></button>
             </div>
           </form>
         </div>

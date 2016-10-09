@@ -19,25 +19,25 @@ class App extends Component {
     this.listenForInvite = this.listenForInvite.bind(this);
   }
   componentDidMount() {
-    getRestaurants().then(allRestaurants => this.setState({allRestaurants}));
-    base.fetch(`users`, {
-      context: this,
-      asArray: true,
-      then(users) {
-        this.setState({users})
-      }
+    navigator.geolocation.getCurrentPosition(position => {
+      let { latitude, longitude } = position.coords;
+      getRestaurants(latitude, longitude).then(allRestaurants => this.setState({allRestaurants}));
+      base.bindToState(`users`, {
+        context: this,
+        state: 'users',
+        asArray: true
+      });
     });
   }
   componentWillUnmount() {
     base.removeBinding(this.ref);
   }
   listenForInvite(userId) {
-    this.ref = base.listenTo(`users/${userId}/partyId`, {
+    this.ref = base.listenTo(`users/${userId}`, {
       context: this,
-      asArray: true,
-      then(partyId) {
-        if (partyId.length) {
-          this.addPartyId(partyId);
+      then(userInfo) {
+        if (userInfo.partyId && !this.state.partyId) {
+          this.addPartyId(userInfo.partyId);
           this.context.router.push("invitation");
         }
       }

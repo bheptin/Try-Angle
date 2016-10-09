@@ -40,7 +40,7 @@ class BasicInfo extends Component {
         transitionAppearTimeout={500}
         transitionEnterTimeout={500}
         transitionLeaveTimeout={300}>
-        <div>
+        <div style={{display: "flex", alignItems: "center", margin: "40px 0 0 40px"}}>
             <div className="form-group">
               <label>First Name</label>
               <input type="text" value={this.state.firstName || ""} placeholder="John" className="form-control" onChange={this.handleChange.bind(this, 'firstName')}/>
@@ -49,14 +49,13 @@ class BasicInfo extends Component {
               <label>Last Name</label>
               <input type="text" value={this.state.lastName || ""} placeholder="Doe" className="form-control" onChange={this.handleChange.bind(this, 'lastName')}/>
             </div>
-            <div className="form-group">
-              <label>Zip Code</label>
-              <input type="text" value={this.state.zipCode || ""} placeholder="Zip Code" className="form-control" onChange={this.handleChange.bind(this, 'zipCode')}/>
-            </div>
+            <Link to="/choose-friends"><button className="btn btn-primary">Next</button></Link>
         </div>
       </ReactCSSTransitionGroup>
     )
   }
 }
+
+BasicInfo.contextTypes = {router: React.PropTypes.object.isRequired};
 
 export default BasicInfo;

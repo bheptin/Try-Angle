@@ -8,9 +8,8 @@ class AngleMade extends Component {
     constructor (props) {
       super(props);
       this.state = {venue: null}
+      this.clearPartyFromUser = this.clearPartyFromUser.bind(this);
     }
-
-
     componentWillMount() {
       this.decideVenue(this.props);
     }
@@ -48,8 +47,21 @@ class AngleMade extends Component {
         }
       })
     }
+    clearPartyFromUser() {
+      let uid = base.auth().currentUser.uid;
+      base.update(`users/${uid}`, {
+        data: {
+          partyId: null
+        }
+      });
+      this.context.router.push("choose-friends");
+    }
     render () {
-        console.log(this.props.allRestaurants[0]);
+
+      let phone = this.state.venue ? this.state.venue.phone.replace('+1', '').split("") : [];
+      phone.splice(3, 0, "-");
+      phone.splice(7, 0, "-");
+      phone = phone.join("");
 
       return(
 
@@ -57,21 +69,27 @@ class AngleMade extends Component {
           <img src={this.state.venue ? this.state.venue.image_url : ''} style={{width: "275px", height: "250px", marginTop: "20px"}} alt="..." className="img-thumbnail"/>
           <h1 style={{marginBottom: "0px", fontSize: "50px", color: "#6798cd", fontFamily: "fantasy"}}><a href={this.state.venue ? this.state.venue.url : ""}> {this.state.venue ? this.state.venue.name : ""}</a></h1>
             <h2 style={{textAlign: "inherit", margin: "0px", fontSize: "30px", color: "#6798cd",}}> {this.state.venue ? this.state.venue.location.address1 : ''}
+                {' '}
                 {this.state.venue ? `${this.state.venue.location.city}, ` : ''}
                 {this.state.venue ? this.state.venue.location.state : ''}
+                {' '}
                 {this.state.venue ? this.state.venue.location.zip_code : ''}
             </h2>
-            <p style={{textAlign: "inherit", margin: "0px", fontSize: "20px", color: "#6798cd",}}>{this.state.venue ? `Phone #: ${this.state.venue.phone.replace('+1', '')}` : ''}<br></br>
-                {this.state.venue ? `Price: ${this.state.venue.price}`: ''}</p>
-
+            <p style={{textAlign: "inherit", margin: "0px", fontSize: "20px", color: "#6798cd"}}>
+              {this.state.venue ? `Phone #: ${phone}` : ''}<br></br>
+              {this.state.venue ? `Price: ${this.state.venue.price}`: ''}</p>
               <SimpleMapPage lat={this.state.venue ? this.state.venue.coordinates.latitude : ''}
                              lng={this.state.venue ? this.state.venue.coordinates.longitude : ''}/>
-            <button style={{marginLeft: "140px"}} className="btn btn-primary btn-sm">Got It!</button>
+              <button style={{marginTop: "40px", width: "120px"}} className="btn btn-primary btn-sm" onClick={this.clearPartyFromUser}>Got It!</button>
 
         </div>
 
       )
     }
+}
+
+AngleMade.contextTypes = {
+  router: React.PropTypes.object.isRequired
 }
 
 export default AngleMade;
