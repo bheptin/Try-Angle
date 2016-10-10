@@ -14,8 +14,9 @@ console.log(this.props.lng);
          <GoogleMap bootstrapURLKeys={{key: 'AIzaSyBL8UkkbIv6jv4eoA3Ci2xFISW2fsdMNRw'}}
          style={{marginTop: "30px", display: "flex", marginLeft: "320px", position: "relative", width: "600px", height: "600px"}}
          defaultZoom={14}
-         defaultCenter={{ lat: this.props.lat , lng: this.props.lng }}
+         defaultCenter={{ lat: 28.5383360 , lng: -81.3792360 }}
          >
+         
 
         </GoogleMap>
       </div>
