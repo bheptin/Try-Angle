@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import LoginForm from './LoginForm';
-import { Link } from 'react-router';
-import MediaQuery from 'react-responsive';
 import base from '../config/ReBase';
 
 class Login extends Component {

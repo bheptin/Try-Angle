@@ -19,6 +19,7 @@ class FriendsContainer extends Component {
     this.nameInSearch = this.nameInSearch.bind(this);
   }
   componentDidMount() {
+    this.props.showNav();
     let uid = base.auth().currentUser ? base.auth().currentUser.uid : localStorage.currentUser;
     base.fetch(`users/${uid}/previouslyDinedWith`, {
       context: this,

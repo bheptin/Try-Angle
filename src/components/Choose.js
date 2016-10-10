@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import MediaQuery from 'react-responsive';
 import 'react-select/dist/react-select.css';
-import { getRestaurants } from '../config/api';
 import _ from 'lodash';
 import base from '../config/ReBase';
 
@@ -16,10 +15,12 @@ class Choose extends Component {
   }
   handleClick() {
     let selectedRestaurants = this.state.value.map(restaurant => restaurant.value);
-    base.post(`parties/${this.props.partyId}/selections/${base.auth().currentUser.uid}`, {
+    let uid = base.auth().currentUser ? base.auth().currentUser.uid : localStorage.currentUser;
+    let partyId = this.props.partyId !== null ? this.props.partyId : localStorage.partyId;
+    base.post(`parties/${partyId}/selections/${uid}`, {
       data: selectedRestaurants
     });
-    base.post(`parties/${this.props.partyId}/readyToGo/${base.auth().currentUser.uid}`, {
+    base.post(`parties/${partyId}/readyToGo/${uid}`, {
       data: true
     });
     this.context.router.push("waiting-room");
@@ -33,15 +34,14 @@ class Choose extends Component {
     }
   }
   handleSelect(value) {
-    console.log(value);
     this.setState({value});
   }
   render() {
     let { allRestaurants } = this.props;
     console.log(allRestaurants);
     let checkboxes = allRestaurants.map((restaurant, index) => (
-      <li className={restaurant.name.length > 30 ? "col-md-12 col-lg-6 col-xl-6" : "col-md-6 col-lg-4 col-xl-4"} style={{padding: "0", height: "190px"}}>
-        <label className="RestaurantList col-sm-6 col-sm-offset" key={index}>
+      <li className={restaurant.name.length > 30 ? "col-md-12 col-lg-6 col-xl-6" : "col-md-6 col-lg-4 col-xl-4"} style={{padding: "0", height: "190px"}} key={index}>
+        <label className="RestaurantList col-sm-6 col-sm-offset">
           <img src={restaurant.image_url} style={{width: "100px", height: "100px"}} alt="..." className="img-thumbnail"/>
           <div style={{margin: "0px"}}>
             <h3 style={{color: "#4579B4", fontFamily: "fantasy", fontSize: "30px", fontWeight: "bold"}}>{restaurant.name}</h3>
