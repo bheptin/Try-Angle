@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import { getRestaurants } from '../config/api';
 import base from '../config/ReBase';
 import '../App.css';
-import favicon from '../favicon.ico';
 
 class App extends Component {
   constructor() {
@@ -12,7 +11,7 @@ class App extends Component {
       allRestaurants: [],
       partyId: null,
       users: [],
-      navIsVisible: false
+      navIsVisible: false,
     };
     this.addPartyId = this.addPartyId.bind(this);
     this.showNav = this.showNav.bind(this);
@@ -56,7 +55,8 @@ class App extends Component {
         <div className="App-header">
           <div className="animated bounce" id="Head"><p>tryAngle</p></div>
           <div style={this.state.navIsVisible ? {display: "block"} : {display: "none"}}>
-            <Link style={{float: "right", margin: "8px", color: "#DADBEC"}} to="/profile">Profile</Link>
+            <Link to="/waiting-room" style={{float: "right", margin: "8px", color: "#DADBEC"}}>Waiting Room</Link>
+            <Link to="/profile" style={{float: "right", margin: "8px", color: "#DADBEC"}}>Profile</Link>
             <Link to="/login" style={{float: "right", margin: "8px", color: "#DADBEC"}}>Sign Out<span className="sr-only">(current)</span></Link>
           </div>
         </div>
