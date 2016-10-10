@@ -6,9 +6,11 @@ class WaitingRoom extends Component {
   constructor() {
     super();
     this.state = { readyToGo: {} };
+    this.handleClick = this.handleClick.bind(this);
   }
   componentWillMount() {
-    let { partyId } = this.props;
+    let { partyId, showNav } = this.props;
+    showNav();
     partyId = partyId || localStorage.partyId;
     this.ref = base.listenTo(`parties/${partyId}/readyToGo`, {
       context: this,
@@ -25,13 +27,29 @@ class WaitingRoom extends Component {
     base.removeBinding(this.ref);
   }
   addToDinedWith(friends) {
-    let userId = base.auth().currentUser.uid;
-    friends = friends.filter(friend => friend !== userId);
+    let uid = base.auth().currentUser ? base.auth().currentUser.uid : localStorage.currentUser;
+    friends = friends.filter(friend => friend !== uid);
     friends.forEach(friend => {
-      base.push(`users/${userId}/previouslyDinedWith`, {
+      base.push(`users/${uid}/previouslyDinedWith`, {
         data: friend
       })
     });
+  }
+  handleClick() {
+    let uid = base.auth().currentUser ? base.auth().currentUser.uid : localStorage.currentUser;
+    let partyId = this.props.partyId || localStorage.partyId;
+    base.update(`users/${uid}`, {data: {partyId: null}});
+    base.fetch(`parties/${partyId}/readyToGo`, {
+      context: this
+    }).then(readyToGo => {
+      let partyGoers = Object.keys(readyToGo);
+      if ( partyGoers.length < 3 ) {
+        partyGoers.forEach(partyGoer => {
+          base.update(`users/${partyGoer}`, {data: {partyId: null}});
+        })
+      }
+    })
+    this.context.router.push("choose-friends");
   }
   render() {
     let uid = base.auth().currentUser ? base.auth().currentUser.uid : localStorage.currentUser;
@@ -43,8 +61,11 @@ class WaitingRoom extends Component {
         </div>
       ))
     return (
-      <div className="waiting-room-container">
-        {boxes}
+      <div>
+        <div className="waiting-room-container">
+          {boxes}
+        </div>
+        <button className="btn btn-primary" onClick={this.handleClick}>Change of Plans</button>
       </div>
     )
   }

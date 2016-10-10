@@ -18,7 +18,8 @@ const Friends = ({ uid, users, visibleFriends, checkedFriends, nameInSearch, sea
           {filteredFriendsList}
         </ul>
         <img className="img-circle hidden-xs col-sm-2 col-md-2 col-lg-4 col-xl-4 col-sm-offset-1 col-md-offset-2 col-lg-offset-2 col-xl-offset-2"
-          src="http://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/new_years_healthy_eating_slideshow/getty_rm_photo_of_friends_eating_appetizers.jpg"/>
+          src="http://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/new_years_healthy_eating_slideshow/getty_rm_photo_of_friends_eating_appetizers.jpg"
+          alt="pasta fork plate"/>
       </div>
       <div className="row">
         <button onClick={handleClick} type="button"

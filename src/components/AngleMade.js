@@ -9,6 +9,7 @@ class AngleMade extends Component {
       this.clearPartyFromUser = this.clearPartyFromUser.bind(this);
     }
     componentWillMount() {
+      this.props.showNav();
       this.decideVenue(this.props);
     }
     componentWillReceiveProps(nextProps) {
