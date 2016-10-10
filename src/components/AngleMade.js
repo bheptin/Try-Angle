@@ -1,39 +1,96 @@
 import React, { Component } from 'react';
+import base from '../config/ReBase';
 import _ from 'lodash';
+import SimpleMapPage  from './SimpleMapPage.js';
+
 
 class AngleMade extends Component {
     constructor (props) {
       super(props);
-      this.state = {button: false, lucky: false}
+      this.state = {venue: null}
+      this.clearPartyFromUser = this.clearPartyFromUser.bind(this);
     }
+    componentWillMount() {
+      this.props.showNav();
+      this.decideVenue(this.props);
+    }
+    componentWillReceiveProps(nextProps) {
+      this.decideVenue(nextProps);
+    }
+    decideVenue(props) {
+      let { partyId, allRestaurants } = props;
+      partyId = partyId || localStorage.partyId;
+      base.fetch(`parties/${partyId}/selections`, {
+        context: this,
+        asArray: true,
+        then(choices) {
+          let commonChoices = _.intersection(...choices);
+          let combinedChoices = _.uniq(_.flatten(choices));
+          let randomChoice = _.shuffle(commonChoices.length ? commonChoices : combinedChoices)[0];
+          console.log("Combined choices are ", combinedChoices);
+          console.log("Common choices are ", commonChoices);
+          console.log("random choice is:", randomChoice);
+          base.fetch(`parties/${partyId}/venue`, {
+            context: this,
+            then(venue) {
+              if (venue) {
 
-    eventHandler (Kevin) {
-        console.log(Kevin);
-        if (Kevin === "finalDecision") {
-          this.setState({lucky: false})
-        } else {
-          this.setState({lucky: true})
+                this.setState({venue: allRestaurants.filter(restaurant => restaurant.id === venue)[0]});
+              } else {
+                base.post(`parties/${partyId}/venue`, {
+                  data: randomChoice
+                })
+                this.setState({venue: allRestaurants.filter(restaurant => restaurant.id === randomChoice)[0]});
+              }
+
+            }
+          })
         }
+      })
     }
-
+    clearPartyFromUser() {
+      let uid = base.auth().currentUser.uid;
+      base.update(`users/${uid}`, {
+        data: {
+          partyId: null
+        }
+      });
+      this.context.router.push("choose-friends");
+    }
     render () {
-      let finalDecision = _.shuffle(this.props.chosenRestaurants)[0];
-      let lucky = _.valuesIn(this.props.friendsChoices);
-      lucky = _.flatten(lucky);
-      console.log(lucky);
-      lucky = _.shuffle(lucky)[0];
+
+      let phone = this.state.venue ? this.state.venue.phone.replace('+1', '').split("") : [];
+      phone.splice(3, 0, "-");
+      phone.splice(7, 0, "-");
+      phone = phone.join("");
 
       return(
+
         <div className="angleMade">
-          <button ref="angle" onClick={this.eventHandler.bind(this,"finalDecision")} type="button" className="btn btn-primary">Create Angle</button>
-          <button ref="lucky" onClick={this.eventHandler.bind(this,"lucky")} type="button" className="btn btn-info">Feeling Lucky</button>
-            <h2>Angle Made</h2>
-            <h2>{!this.state.lucky ? finalDecision : lucky }
-                </h2>
+          <img src={this.state.venue ? this.state.venue.image_url : ''} style={{width: "275px", height: "250px", marginTop: "20px"}} alt="..." className="img-thumbnail"/>
+          <h1 style={{marginBottom: "0px", fontSize: "50px", color: "#6798cd", fontFamily: "fantasy"}}><a href={this.state.venue ? this.state.venue.url : ""}> {this.state.venue ? this.state.venue.name : ""}</a></h1>
+            <h2 style={{textAlign: "inherit", margin: "0px", fontSize: "30px", color: "#6798cd",}}> {this.state.venue ? this.state.venue.location.address1 : ''}
+                {' '}
+                {this.state.venue ? `${this.state.venue.location.city}, ` : ''}
+                {this.state.venue ? this.state.venue.location.state : ''}
+                {' '}
+                {this.state.venue ? this.state.venue.location.zip_code : ''}
+            </h2>
+            <p style={{textAlign: "inherit", margin: "0px", fontSize: "20px", color: "#6798cd"}}>
+              {this.state.venue ? `Phone #: ${phone}` : ''}<br></br>
+              {this.state.venue ? `Price: ${this.state.venue.price}`: ''}</p>
+              {/*<SimpleMapPage lat={this.state.venue ? this.state.venue.coordinates.latitude : ''}
+                             lng={this.state.venue ? this.state.venue.coordinates.longitude : ''}/> */}
+              <button style={{marginTop: "40px", width: "120px"}} className="btn btn-primary btn-sm" onClick={this.clearPartyFromUser}>Got It!</button>
+
         </div>
 
       )
     }
+}
+
+AngleMade.contextTypes = {
+  router: React.PropTypes.object.isRequired
 }
 
 export default AngleMade;

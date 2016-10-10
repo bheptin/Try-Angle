@@ -8,28 +8,29 @@ class BasicInfo extends Component {
     super();
     this.state = {
       firstName: "",
-      lastName: ""
+      lastName: "",
+      zipCode: ""
     };
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     this.ref = [];
-    const endpoints = ['firstName', 'lastName'];
+    const endpoints = ['firstName', 'lastName', 'zipCode'];
     endpoints.forEach(endpoint => {
-      this.ref.push(base.syncState(`users/${this.props.uid}/personalInfo/${endpoint}`, {
+      base.fetch(`users/${base.auth().currentUser.uid}/personalInfo/${endpoint}`, {
         context: this,
-        state: endpoint
-      }))
+        then(name) {
+          this.setState({[endpoint]: name});
+        }
+      })
     })
   }
-  componentWillUnmount() {
-    this.ref.forEach(ref => base.removeBinding(ref));
-  }
   handleChange(key, event) {
-    let newObj = {};
-    newObj[key] = event.target.value;
-    let newState = Object.assign(this.state, newObj);
-    this.setState(newState);
+    let newName = {[key]: event.target.value};
+    base.post(`users/${base.auth().currentUser.uid}/personalInfo/${key}`, {
+      data: event.target.value
+    })
+    this.setState(newName);
   }
   render () {
     return (
@@ -39,7 +40,7 @@ class BasicInfo extends Component {
         transitionAppearTimeout={500}
         transitionEnterTimeout={500}
         transitionLeaveTimeout={300}>
-        <div>
+        <div style={{display: "flex", alignItems: "center", margin: "40px 0 0 40px"}}>
             <div className="form-group">
               <label>First Name</label>
               <input type="text" value={this.state.firstName || ""} placeholder="John" className="form-control" onChange={this.handleChange.bind(this, 'firstName')}/>
@@ -48,10 +49,13 @@ class BasicInfo extends Component {
               <label>Last Name</label>
               <input type="text" value={this.state.lastName || ""} placeholder="Doe" className="form-control" onChange={this.handleChange.bind(this, 'lastName')}/>
             </div>
+            <Link to="/choose-friends"><button className="btn btn-primary">Next</button></Link>
         </div>
-    </ReactCSSTransitionGroup>
+      </ReactCSSTransitionGroup>
     )
   }
 }
+
+BasicInfo.contextTypes = {router: React.PropTypes.object.isRequired};
 
 export default BasicInfo;

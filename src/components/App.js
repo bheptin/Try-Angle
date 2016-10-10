@@ -7,55 +7,68 @@ import '../App.css';
 class App extends Component {
   constructor() {
     super();
-    this.state = {user: {}, allRestaurants: []};
-    this.addUserToState = this.addUserToState.bind(this);
-  }
-  addUserToState(user, path) {
-    this.setState({user});
-    console.log("user id is ", this.state.user.uid);
-    this.context.router.push(`/${path}`);
+    this.state = {
+      allRestaurants: [],
+      partyId: null,
+      users: [],
+      navIsVisible: false,
+    };
+    this.addPartyId = this.addPartyId.bind(this);
+    this.showNav = this.showNav.bind(this);
+    this.listenForInvite = this.listenForInvite.bind(this);
   }
   componentDidMount() {
-    getRestaurants().then(allRestaurants => this.setState({allRestaurants}));
+    navigator.geolocation.getCurrentPosition(position => {
+      let { latitude, longitude } = position.coords;
+      getRestaurants(latitude, longitude).then(allRestaurants => this.setState({allRestaurants}));
+      base.bindToState(`users`, {
+        context: this,
+        state: 'users',
+        asArray: true
+      });
+    });
+  }
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
+  listenForInvite(userId) {
+    this.ref = base.listenTo(`users/${userId}`, {
+      context: this,
+      then(userInfo) {
+        if (userInfo.partyId && !this.state.partyId) {
+          this.addPartyId(userInfo.partyId);
+          this.context.router.push("invitation");
+        }
+      }
+    })
+  }
+  addPartyId(partyId) {
+    this.setState({partyId});
+    localStorage.setItem('partyId', partyId);
+  }
+  showNav() {
+    this.setState({navIsVisible: true});
   }
   render() {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>Try-Angle</h2>
-          <nav className="navbar navbar-default">
-            <div className="container-fluid">
-              <div className="navbar-header">
-                <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                  <span className="sr-only">Toggle navigation</span>
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                </button>
-                <a className="navbar-brand" href="#">Try-Angle</a>
-              </div>
-
-
-            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul className="nav navbar-nav">
-                <li className="active"><Link to="/home">Home<span className="sr-only">(current)</span></Link></li>
-                <li><Link to="/profile">Profile</Link></li>
-              </ul>
-              <form className="navbar-form navbar-left">
-                <div className="form-group">
-                  <input type="text" className="form-control" placeholder="Search"/>
-                </div>
-                <button type="submit" className="btn btn-default">Submit</button>
-              </form>
-            </div>
+          <div className="animated bounce" id="Head"><p>tryAngle</p></div>
+          <div style={this.state.navIsVisible ? {display: "block"} : {display: "none"}}>
+            <Link to="/waiting-room" style={{float: "right", margin: "8px", color: "#DADBEC"}}>Waiting Room</Link>
+            <Link to="/profile" style={{float: "right", margin: "8px", color: "#DADBEC"}}>Profile</Link>
+            <Link to="/login" style={{float: "right", margin: "8px", color: "#DADBEC"}}>Sign Out<span className="sr-only">(current)</span></Link>
           </div>
-        </nav>
         </div>
         {cloneElement(this.props.children, {
-          addUserToState: this.addUserToState,
-          uid: this.state.user.uid,
-          allRestaurants: this.state.allRestaurants
+          allRestaurants: this.state.allRestaurants,
+          partyId: this.state.partyId,
+          addPartyId: this.addPartyId,
+          users: this.state.users,
+          showNav: this.showNav,
+          listenForInvite: this.listenForInvite
         })}
+
       </div>
     );
   }

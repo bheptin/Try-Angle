@@ -13,27 +13,27 @@ body {
 }
 .Friends h3{
   text-align: left;
-  margin-left: 80px;
-  width: 200px;
+  margin-bottom: 30px;
   color: #6798cd;
 }
+.Friends h4 {
+  display: inline-block;
+  width: 60%;
+}
 .Friends ul {
+  background-color: #C5DBF5;
   color: #6798cd;
   border-style: solid;
+  border-radius: 10px;
   border-color: #2A619E;
-  text-align: right;
   font-family: monospace;
   font-weight: 700;
   font-size: 20px;
   padding: 0px;
-  width: 310px;
-  height: 100px;
+  margin-top: 20px;
+  height: 200px;
   overflow: hidden;
   overflow-y: auto;
-}
-
-.mobile {
-  display: none;
 }
 
 .example-appear {
@@ -45,15 +45,98 @@ body {
   transition: opacity .5s ease-in;
 }
 
-@media (max-width: 600px) {
-  .mobile {
-    display: block;
-  }
-  .my-choices, .their-choices {
-    display: none;
+.login-form {
+  margin-top: 50px;
+  display: flex;
+}
+
+.invite h2 {
+  font-family: fantasy;
+  color: #6798cd;
+}
+
+.RestaurantList {
+  display: flex;
+  width: 800px;
+  margin: none;
+
+}
+
+.Friends img {
+  width: 300px;
+  height: 250px;
+}
+
+.Friends.container-fluid {
+  margin: 50px 20px 0 20px;
+}
+
+.friends-search {
+  width: 100%;
+}
+
+.container-fluid {
+  background-color: white;
+}
+
+.card h1 {
+  text-align: left;
+}
+
+.waiting-room-container {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.waiting-room-container div {
+  width: 300px;
+  height: 300px;
+}
+
+.fa-cutlery {
+  margin-top: 70px;
+  font-size: 50px;
+}
+
+.form-group {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+@media (max-width: 992px) {
+  .form-group {
+    display: inline-block;
   }
 }
 
-.App-logo {
-  background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Penrose-dreieck.svg/2000px-Penrose-dreieck.svg.png);
+@media (max-width: 767px) {
+  .Friends h3 {
+    text-align: center;
+  }
+}
+
+@media (max-width: 530px) {
+  .card.alt {
+    right: 20px
+  }
+}
+
+@media (max-width: 900px) {
+  .waiting-room-container div {
+    width: 100px;
+    height: 100px;
+  }
+  .waiting-room-container i {
+    margin: 0;
+    font-size: 30px;
+  }
+  .waiting-room-container h2 {
+    font-size: 10px;
+  }
+}
+.gm-style {
+  height: 200px;
+  width: 200px;
 }

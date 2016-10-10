@@ -1,7 +1,4 @@
 import React, { Component, cloneElement } from 'react';
-import { getRestaurants } from '../config/api';
-import BasicInfo from '../components/BasicInfo';
-import base from '../config/ReBase';
 
 class ProfileContainer extends Component {
   constructor() {
@@ -9,13 +6,9 @@ class ProfileContainer extends Component {
     this.state = {
       restaurants: []
     };
-    this.handleClick = this.handleClick.bind(this);
   }
-  handleClick() {
-    const routes = ["/profile/basic-info", "/profile/food-prefs", "/profile/allergies", "/home"];
-    let currentRoute = this.props.location.pathname;
-    let nextIndex = routes.indexOf(currentRoute) + 1;
-    this.context.router.push(routes[nextIndex]);
+  componentWillMount() {
+    this.props.showNav();
   }
   render() {
     return (
@@ -25,7 +18,6 @@ class ProfileContainer extends Component {
           uid: this.props.uid,
           allRestaurants: this.props.allRestaurants
         })}
-        <button className="btn btn-primary" onClick={this.handleClick}>Next</button>
       </div>
     )
   }

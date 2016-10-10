@@ -1,26 +1,29 @@
 import React from "react";
 import { Router, Route, browserHistory, IndexRedirect } from "react-router";
 import App from "../components/App";
-import Home from "../components/Home";
 import Login from "../components/Login";
-import Signup from "../components/Signup";
 import ProfileContainer from "../containers/ProfileContainer";
 import BasicInfo from "../components/BasicInfo";
-import FoodPrefs from "../components/FoodPrefs";
-import Allergies from "../components/Allergies";
+import FriendsContainer from '../containers/FriendsContainer';
+import Choose from '../components/Choose';
+import WaitingRoom from '../components/WaitingRoom';
+import AngleMade from '../components/AngleMade';
+import Invitation from '../components/Invitation';
+
 
 const routes = (
   <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRedirect to="login" />
       <Route path="login" component={Login} />
-      <Route path="signup" component={Signup} />
-      <Route path="home" component={Home}/>
+      <Route path="invitation" component={Invitation} />
+      <Route path="choose-friends" component={FriendsContainer}/>
+      <Route path="choose-restaurants" component={Choose}/>
+      <Route path="waiting-room" component={WaitingRoom}/>
+      <Route path="angle-made" component={AngleMade}/>
       <Route path="profile" component={ProfileContainer}>
         <IndexRedirect to="basic-info" />
         <Route path="basic-info" component={BasicInfo}/>
-        <Route path="food-prefs" component={FoodPrefs}/>
-        <Route path="allergies" component={Allergies}/>
       </Route>
     </Route>
   </Router>
