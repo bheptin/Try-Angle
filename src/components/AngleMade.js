@@ -79,8 +79,8 @@ class AngleMade extends Component {
             <p style={{textAlign: "inherit", margin: "0px", fontSize: "20px", color: "#6798cd"}}>
               {this.state.venue ? `Phone #: ${phone}` : ''}<br></br>
               {this.state.venue ? `Price: ${this.state.venue.price}`: ''}</p>
-              {/*<SimpleMapPage lat={this.state.venue ? this.state.venue.coordinates.latitude : ''}
-                             lng={this.state.venue ? this.state.venue.coordinates.longitude : ''}/> */}
+              <SimpleMapPage lat={this.state.venue ? this.state.venue.coordinates.latitude : ''}
+                             lng={this.state.venue ? this.state.venue.coordinates.longitude : ''}/> 
               <button style={{marginTop: "40px", width: "120px"}} className="btn btn-primary btn-sm" onClick={this.clearPartyFromUser}>Got It!</button>
 
         </div>
