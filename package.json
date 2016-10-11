@@ -10,7 +10,8 @@
     "enzyme": "^2.4.1",
     "jsdom": "^9.6.0",
     "react-addons-test-utils": "^15.3.2",
-    "react-scripts": "0.4.3"
+    "react-scripts": "0.4.3",
+    "surge": "latest"
   },
   "dependencies": {
     "animate.css": "^3.5.2",

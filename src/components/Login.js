@@ -43,6 +43,7 @@ class Login extends Component {
       console.log(error);
     } else {
       localStorage.setItem('currentUser', userData.uid);
+      this.props.listenForInvite(userData.uid);
       this.context.router.push("profile");
     }
   }
