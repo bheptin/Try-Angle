@@ -18,7 +18,7 @@ console.log(this.props.name);
          defaultZoom={18}
          defaultCenter={{lat: 28.5383360, lng: -81.3792360}}
          center={{lat: this.props.lat, lng: this.props.lng}}
-         marker={{name: this.props.name}}
+         
          >
 
 
